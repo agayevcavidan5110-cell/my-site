@@ -3,35 +3,225 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cavidan - Saytım</title>
+  <title>Cavidan — Web sayt xidməti</title>
+  <meta name="description" content="Sadə, sürətli və mobil uyğun 1 səhifəlik saytlar. CV və reklam mətni xidmətləri." />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="container">
-    <h1>Cavidan</h1>
-    <p>Sadə portfolio / xidmət saytı</p>
-    <a class="btn" href="#contact">Əlaqə</a>
+  <nav class="nav">
+    <div class="container nav__inner">
+      <div class="brand">
+        <div class="logo">C</div>
+        <div>
+          <div class="brand__name">Cavidan</div>
+          <div class="brand__tag">Web sayt • CV • Reklam mətni</div>
+        </div>
+      </div>
+
+      <div class="nav__links">
+        <a href="#services">Xidmətlər</a>
+        <a href="#work">Nümunələr</a>
+        <a href="#pricing">Qiymətlər</a>
+        <a href="#contact" class="pill">Əlaqə</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container hero__grid">
+      <div class="hero__text">
+        <h1>1–2 günə <span class="grad">professional</span> və mobil uyğun sayt</h1>
+        <p>
+          Kiçik biznes, şəxsi portfolio və xidmət səhifələri. Sürətli təhvil, təmiz dizayn,
+          WhatsApp ilə 1 klik əlaqə.
+        </p>
+
+        <div class="hero__cta">
+          <a class="btn" href="#contact">İndi sifariş et</a>
+          <a class="btn btn--ghost" href="#work">Nümunələrə bax</a>
+        </div>
+
+        <div class="trust">
+          <div class="trust__item">
+            <div class="trust__num">1–2 gün</div>
+            <div class="trust__label">Təhvil</div>
+          </div>
+          <div class="trust__item">
+            <div class="trust__num">Mobil</div>
+            <div class="trust__label">Uyğun dizayn</div>
+          </div>
+          <div class="trust__item">
+            <div class="trust__num">Pulsuz</div>
+            <div class="trust__label">Yayımlama (GitHub)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__card">
+        <div class="card__top">
+          <div class="badge">Sürətli paket</div>
+          <div class="mini">✅ 1 səhifə • ✅ WhatsApp • ✅ Form</div>
+        </div>
+
+        <div class="card__list">
+          <div class="row"><span>• Home + Xidmətlər + Əlaqə</span><span>✓</span></div>
+          <div class="row"><span>• Dizayn + rənglər + ikonlar</span><span>✓</span></div>
+          <div class="row"><span>• SEO əsasları (title/desc)</span><span>✓</span></div>
+          <div class="row"><span>• 1 dəfə düzəliş</span><span>✓</span></div>
+        </div>
+
+        <a class="btn btn--full" href="#pricing">Qiymətə bax</a>
+      </div>
+    </div>
   </header>
 
   <main class="container">
-    <section>
-      <h2>Xidmətlər</h2>
-      <ul class="cards">
-        <li class="card">Sadə 1 səhifəlik sayt</li>
-        <li class="card">CV hazırlama</li>
-        <li class="card">Post/reklam mətni (AI ilə)</li>
-      </ul>
+    <section id="services" class="section">
+      <div class="section__head">
+        <h2>Xidmətlər</h2>
+        <p>Ən çox sifariş olunan işlər — aydın, sürətli, nəticə yönümlü.</p>
+      </div>
+
+      <div class="grid3">
+        <article class="card">
+          <h3>1 səhifəlik sayt</h3>
+          <p>Biznes səhifəsi, portfolio və ya xidmət landing page. Mobil uyğun.</p>
+          <ul class="check">
+            <li>WhatsApp düyməsi</li>
+            <li>Əlaqə bölməsi / forma</li>
+            <li>Sürətli təhvil</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>CV hazırlama</h3>
+          <p>ATS uyğun, səliqəli və işə qəbul üçün professional CV.</p>
+          <ul class="check">
+            <li>Struktur + dizayn</li>
+            <li>HR-oxunaqlı format</li>
+            <li>1 dəfə düzəliş</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Reklam / post mətni</h3>
+          <p>Satış artıran mətnlər: Instagram, TikTok, elan, banner.</p>
+          <ul class="check">
+            <li>1 məhsul = 3 variant</li>
+            <li>Başlıq + CTA</li>
+            <li>Brend tonuna uyğun</li>
+          </ul>
+        </article>
+      </div>
     </section>
 
-    <section id="contact">
-      <h2>Əlaqə</h2>
-      <p>Email: example@mail.com</p>
-      <p>WhatsApp: +994 xx xxx xx xx</p>
+    <section id="work" class="section">
+      <div class="section__head">
+        <h2>Nümunələr</h2>
+        <p>Müştəriyə göstərə biləcəyin demo nümunələr. (İstəsən sayını artırarıq.)</p>
+      </div>
+
+      <div class="grid3">
+        <a class="work card" href="#" onclick="return false;">
+          <div class="work__thumb"></div>
+          <div class="work__meta">
+            <div class="work__title">Biznes Landing</div>
+            <div class="work__desc">Xidmət + əlaqə + WhatsApp</div>
+          </div>
+        </a>
+
+        <a class="work card" href="#" onclick="return false;">
+          <div class="work__thumb"></div>
+          <div class="work__meta">
+            <div class="work__title">Portfolio</div>
+            <div class="work__desc">Layihələr + bacarıqlar</div>
+          </div>
+        </a>
+
+        <a class="work card" href="#" onclick="return false;">
+          <div class="work__thumb"></div>
+          <div class="work__meta">
+            <div class="work__title">CV + LinkHub</div>
+            <div class="work__desc">CV linki + əlaqə</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section id="pricing" class="section">
+      <div class="section__head">
+        <h2>Qiymətlər</h2>
+        <p>Başlanğıc üçün 3 paket. Sonradan artırıb daha premium edə bilərik.</p>
+      </div>
+
+      <div class="pricing">
+        <article class="price card">
+          <div class="price__name">Start</div>
+          <div class="price__value">$50</div>
+          <div class="price__sub">1 səhifə • 1 gün</div>
+          <ul class="check">
+            <li>Mobil uyğun dizayn</li>
+            <li>Əlaqə bölməsi</li>
+            <li>GitHub Pages yayımlama</li>
+          </ul>
+          <a class="btn btn--ghost btn--full" href="#contact">Sifariş et</a>
+        </article>
+
+        <article class="price card price--hot">
+          <div class="hot">Ən çox seçilən</div>
+          <div class="price__name">Pro</div>
+          <div class="price__value">$90</div>
+          <div class="price__sub">1–2 səhifə • 2 gün</div>
+          <ul class="check">
+            <li>WhatsApp düyməsi</li>
+            <li>Portfolio/galereya</li>
+            <li>1 dəfə düzəliş</li>
+          </ul>
+          <a class="btn btn--full" href="#contact">Sifariş et</a>
+        </article>
+
+        <article class="price card">
+          <div class="price__name">Business</div>
+          <div class="price__value">$150+</div>
+          <div class="price__sub">3–5 bölmə • 3–5 gün</div>
+          <ul class="check">
+            <li>Logo/rəng brendləşdirmə</li>
+            <li>Form + xəritə</li>
+            <li>Daha çox düzəliş</li>
+          </ul>
+          <a class="btn btn--ghost btn--full" href="#contact">Sifariş et</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="section__head">
+        <h2>Əlaqə</h2>
+        <p>1 dəqiqəlik mesaj yaz — nə istədiyini de, mən dizaynı hazırlayım.</p>
+      </div>
+
+      <div class="contact card">
+        <div>
+          <div class="contact__label">Email</div>
+          <div class="contact__value">agayevcavidan678@mail.com</div>
+
+          <div class="contact__label">WhatsApp</div>
+          <div class="contact__value">+994 51 446 51 10</div>
+        </div>
+
+        <div class="contact__actions">
+          <a class="btn btn--full" href="https://wa.me/994514465110" target="_blank">WhatsApp ilə yaz</a>
+          <a class="btn btn--ghost btn--full" href="mailto:agayevcavidan678@mail.com">Email göndər</a>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer class="container footer">
-    <small>© 2025 Cavidan</small>
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div>© 2025 Cavidan</div>
+      <div class="footer__mini">Made with HTML/CSS • Hosted on GitHub Pages</div>
+    </div>
   </footer>
 </body>
 </html>
