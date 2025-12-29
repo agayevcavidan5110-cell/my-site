@@ -1,672 +1,492 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="az">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cavidan | Freelance Web Developer & Designer</title>
-  
-  <meta name="description" content="Professional landing pages, portfolios, and business websites built in 24-48 hours." />
-  <meta name="keywords" content="web dizayn, sayt qurmaq, portfolio, landing page, freelance developer" />
-
-  <style>
-    /* -----------------------------------------------------------
-       1. GLOBAL STYLES & VARIABLES
-    ----------------------------------------------------------- */
-    :root {
-      --bg-color: #0b1020;
-      --card-bg: #131b33;
-      --card-hover: #1a2444;
-      --border-color: #243055;
-      --text-main: #e9ecff;
-      --text-muted: #a0aec0;
-      --accent: #4f7cff;
-      --accent-secondary: #3d64d9;
-      --success: #10b981;
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-      transition: var(--transition);
-    }
-
-    ul {
-      list-style: none;
-    }
-
-    /* -----------------------------------------------------------
-       2. REUSABLE COMPONENTS
-    ----------------------------------------------------------- */
-    .section {
-      padding: 80px 0;
-    }
-
-    .section-header {
-      margin-bottom: 50px;
-      text-align: left;
-    }
-
-    .section-header h2 {
-      font-size: 36px;
-      font-weight: 900;
-      margin-bottom: 15px;
-      position: relative;
-      display: inline-block;
-    }
-
-    .section-header h2::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 50px;
-      height: 4px;
-      background: var(--accent);
-      border-radius: 2px;
-    }
-
-    .section-header p {
-      color: var(--text-muted);
-      font-size: 18px;
-      max-width: 700px;
-    }
-
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 20px;
-      padding: 30px;
-      transition: var(--transition);
-    }
-
-    .card:hover {
-      transform: translateY(-10px);
-      border-color: var(--accent);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 14px 28px;
-      border-radius: 12px;
-      font-weight: 800;
-      cursor: pointer;
-      transition: var(--transition);
-      border: 2px solid transparent;
-      font-size: 16px;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: white;
-    }
-
-    .btn-primary:hover {
-      background: var(--accent-secondary);
-      box-shadow: 0 8px 20px rgba(79, 124, 255, 0.3);
-    }
-
-    .btn-outline {
-      background: transparent;
-      border-color: var(--border-color);
-      color: var(--text-main);
-    }
-
-    .btn-outline:hover {
-      background: var(--border-color);
-      border-color: var(--accent);
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 6px 14px;
-      background: rgba(79, 124, 255, 0.1);
-      border: 1px solid var(--accent);
-      color: var(--accent);
-      border-radius: 100px;
-      font-size: 12px;
-      font-weight: 900;
-      text-transform: uppercase;
-      margin-bottom: 15px;
-    }
-
-    /* -----------------------------------------------------------
-       3. NAVIGATION
-    ----------------------------------------------------------- */
-    .navbar {
-      padding: 20px 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      background: rgba(11, 16, 32, 0.8);
-      backdrop-filter: blur(12px);
-      z-index: 1000;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .logo {
-      font-size: 26px;
-      font-weight: 900;
-      letter-spacing: -1px;
-    }
-
-    .logo span {
-      color: var(--accent);
-    }
-
-    .lang-switcher {
-      display: flex;
-      gap: 10px;
-    }
-
-    .lang-btn {
-      padding: 8px 12px;
-      border-radius: 8px;
-      border: 1px solid var(--border-color);
-      background: var(--card-bg);
-      color: var(--text-main);
-      cursor: pointer;
-      font-weight: 700;
-      transition: var(--transition);
-    }
-
-    .lang-btn.active {
-      background: var(--accent);
-      border-color: var(--accent);
-    }
-
-    /* -----------------------------------------------------------
-       4. HERO SECTION
-    ----------------------------------------------------------- */
-    .hero {
-      padding: 100px 0 60px;
-    }
-
-    .hero-wrapper {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 50px;
-      align-items: center;
-    }
-
-    @media (max-width: 992px) {
-      .hero-wrapper {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-      .hero-actions {
-        justify-content: center;
-      }
-    }
-
-    .hero-content h1 {
-      font-size: 56px;
-      line-height: 1.1;
-      margin-bottom: 25px;
-      font-weight: 900;
-    }
-
-    .hero-content p {
-      font-size: 20px;
-      color: var(--text-muted);
-      margin-bottom: 35px;
-      max-width: 600px;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 40px;
-    }
-
-    .hero-stats {
-      display: flex;
-      gap: 30px;
-    }
-
-    @media (max-width: 992px) {
-      .hero-stats {
-        justify-content: center;
-      }
-    }
-
-    .stat-item h3 {
-      font-size: 24px;
-      color: var(--accent);
-      font-weight: 900;
-    }
-
-    .stat-item p {
-      font-size: 14px;
-      margin-bottom: 0;
-    }
-
-    /* -----------------------------------------------------------
-       5. SERVICES SECTION
-    ----------------------------------------------------------- */
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
-    }
-
-    @media (max-width: 850px) {
-      .services-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .service-card i {
-      font-size: 40px;
-      color: var(--accent);
-      margin-bottom: 20px;
-      display: block;
-    }
-
-    .service-card h3 {
-      font-size: 22px;
-      margin-bottom: 15px;
-    }
-
-    .service-list {
-      margin-top: 20px;
-    }
-
-    .service-list li {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 8px;
-      font-size: 14px;
-      color: var(--text-muted);
-    }
-
-    .service-list li::before {
-      content: '✓';
-      color: var(--success);
-      font-weight: bold;
-    }
-
-    /* -----------------------------------------------------------
-       6. PORTFOLIO SECTION
-    ----------------------------------------------------------- */
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 30px;
-    }
-
-    @media (max-width: 768px) {
-      .portfolio-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .work-item {
-      overflow: hidden;
-      padding: 0;
-    }
-
-    .work-image {
-      width: 100%;
-      height: 250px;
-      background: linear-gradient(45deg, #1e293b, #334155);
-      position: relative;
-    }
-
-    .work-info {
-      padding: 25px;
-    }
-
-    .work-info h3 {
-      margin-bottom: 10px;
-    }
-
-    /* -----------------------------------------------------------
-       7. PRICING SECTION
-    ----------------------------------------------------------- */
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
-    }
-
-    @media (max-width: 992px) {
-      .pricing-grid {
-        grid-template-columns: 1fr;
-        max-width: 500px;
-        margin: 0 auto;
-      }
-    }
-
-    .price-card {
-      text-align: center;
-      position: relative;
-    }
-
-    .price-card.featured {
-      border: 2px solid var(--accent);
-      transform: scale(1.05);
-    }
-
-    .price-value {
-      font-size: 48px;
-      font-weight: 900;
-      color: var(--accent);
-      margin: 20px 0;
-    }
-
-    .price-value span {
-      font-size: 18px;
-      color: var(--text-muted);
-    }
-
-    /* -----------------------------------------------------------
-       8. TESTIMONIALS & FAQ
-    ----------------------------------------------------------- */
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 25px;
-    }
-
-    @media (max-width: 768px) {
-      .testimonials-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .faq-container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    details {
-      background: var(--card-bg);
-      margin-bottom: 15px;
-      border-radius: 12px;
-      border: 1px solid var(--border-color);
-    }
-
-    summary {
-      padding: 20px;
-      font-weight: 700;
-      cursor: pointer;
-      outline: none;
-      list-style: none;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    summary::after {
-      content: '+';
-      font-size: 20px;
-      color: var(--accent);
-    }
-
-    details[open] summary::after {
-      content: '-';
-    }
-
-    .faq-content {
-      padding: 0 20px 20px;
-      color: var(--text-muted);
-    }
-
-    /* -----------------------------------------------------------
-       9. CONTACT & FOOTER
-    ----------------------------------------------------------- */
-    .contact-wrapper {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 50px;
-    }
-
-    @media (max-width: 768px) {
-      .contact-wrapper {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .contact-info-item {
-      display: flex;
-      gap: 20px;
-      margin-bottom: 30px;
-    }
-
-    .contact-icon {
-      width: 50px;
-      height: 50px;
-      background: rgba(79, 124, 255, 0.1);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent);
-      font-weight: bold;
-    }
-
-    .footer {
-      padding: 50px 0;
-      border-top: 1px solid var(--border-color);
-      text-align: center;
-    }
-
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 25px;
-      margin-bottom: 20px;
-      color: var(--text-muted);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cavidan | Digital Artisan & Web Architect</title>
+    
+    <meta name="description" content="Cavidan tərəfindən hazırlanan yüksək keyfiyyətli veb-saytlar. Landing page, Portfolio və Korporativ həllər.">
+    <meta name="keywords" content="web dizayn, proqramlaşdırma, cavidan, sayt sifarişi, landing page, portfolio">
+    <meta name="author" content="Cavidan">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========================================
+           1. CSS VARIABLES & CORE SETUP
+           ========================================
+        */
+        :root {
+            --bg-dark: #05070a;
+            --bg-card: #0d111a;
+            --accent: #4f7cff;
+            --accent-glow: rgba(79, 124, 255, 0.4);
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --border: rgba(255, 255, 255, 0.08);
+            --gradient: linear-gradient(135deg, #4f7cff 0%, #a855f7 100%);
+            --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ========================================
+           2. PRELOADER & ANIMATIONS
+           ========================================
+        */
+        #preloader {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-dark);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease;
+        }
+        .loader-ring {
+            width: 50px; height: 50px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========================================
+           3. CUSTOM LOGO & NAVIGATION
+           ========================================
+        */
+        .navbar {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 20px 0;
+            background: rgba(5, 7, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Custom Logo Design */
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-box {
+            width: 40px; height: 40px;
+            background: var(--gradient);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: bold;
+            font-size: 22px;
+            color: white;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+        .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .lang-toggle {
+            display: flex;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            padding: 4px;
+        }
+        .lang-btn {
+            padding: 6px 16px;
+            border-radius: 100px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: var(--transition);
+        }
+        .lang-btn.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* ========================================
+           4. HERO SECTION
+           ========================================
+        */
+        .hero {
+            padding: 180px 0 100px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -10%; right: -5%;
+            width: 400px; height: 400px;
+            background: var(--accent-glow);
+            filter: blur(120px);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .hero-content { text-align: center; max-width: 900px; margin: 0 auto; }
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(79, 124, 255, 0.1);
+            border: 1px solid rgba(79, 124, 255, 0.2);
+            border-radius: 100px;
+            color: var(--accent);
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .hero h1 {
+            font-size: clamp(40px, 8vw, 72px);
+            line-height: 1.1;
+            font-weight: 800;
+            margin-bottom: 30px;
+            letter-spacing: -2px;
+        }
+        .hero h1 span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 45px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 16px 36px;
+            border-radius: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 16px;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-main {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 10px 25px rgba(79, 124, 255, 0.3);
+        }
+        .btn-main:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(79, 124, 255, 0.4);
+        }
+        .btn-sec {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            color: white;
+        }
+        .btn-sec:hover { background: rgba(255,255,255,0.1); }
+
+        /* ========================================
+           5. FEATURES & STATS
+           ========================================
+        */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 100px;
+            padding: 40px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+        }
+        .stat-card h3 { font-size: 32px; margin-bottom: 5px; color: var(--accent); }
+        .stat-card p { font-size: 14px; color: var(--text-secondary); text-transform: uppercase; }
+
+        /* ========================================
+           6. SERVICES & PORTFOLIO
+           ========================================
+        */
+        .section-title { margin-bottom: 60px; text-align: left; }
+        .section-title h2 { font-size: 40px; font-weight: 800; margin-bottom: 15px; }
+        .section-title p { color: var(--text-secondary); font-size: 18px; }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .glass-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-card:hover {
+            border-color: var(--accent);
+            background: #111827;
+        }
+        .card-icon {
+            width: 60px; height: 60px;
+            background: rgba(79, 124, 255, 0.1);
+            border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 28px; color: var(--accent);
+            margin-bottom: 25px;
+        }
+
+        .portfolio-img {
+            width: 100%; height: 220px;
+            background: #1e293b;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden;
+        }
+        .portfolio-img::after {
+            content: 'Layihəyə bax';
+            position: absolute;
+            width: 100%; height: 100%;
+            background: rgba(79, 124, 255, 0.9);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: bold; transform: translateY(100%);
+            transition: var(--transition);
+        }
+        .glass-card:hover .portfolio-img::after { transform: translateY(0); }
+
+        /* ========================================
+           7. PRICING TABLE
+           ========================================
+        */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        .price-card {
+            padding: 50px 40px;
+            text-align: center;
+        }
+        .price-card.featured {
+            border: 2px solid var(--accent);
+            transform: scale(1.05);
+            background: rgba(79, 124, 255, 0.05);
+        }
+        .price-val { font-size: 48px; font-weight: 800; margin: 20px 0; }
+        .price-val span { font-size: 16px; color: var(--text-secondary); }
+        .price-features { margin: 30px 0; list-style: none; text-align: left; }
+        .price-features li { margin-bottom: 12px; display: flex; gap: 10px; font-size: 15px; }
+        .price-features li::before { content: '✦'; color: var(--accent); }
+
+        /* ========================================
+           8. TESTIMONIALS & FAQ
+           ========================================
+        */
+        .review-card { border-left: 4px solid var(--accent); }
+        .stars { color: #fbbf24; margin-bottom: 10px; }
+        .author { display: flex; align-items: center; gap: 15px; margin-top: 25px; }
+        .avatar { width: 45px; height: 45px; background: var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+
+        details {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        summary {
+            padding: 20px 25px;
+            font-weight: 700;
+            cursor: pointer;
+            list-style: none;
+            display: flex; justify-content: space-between;
+        }
+        summary::after { content: '↓'; color: var(--accent); transition: 0.3s; }
+        details[open] summary::after { transform: rotate(180deg); }
+        .faq-body { padding: 0 25px 25px; color: var(--text-secondary); font-size: 15px; }
+
+        /* ========================================
+           9. CONTACT SECTION (PRO)
+           ========================================
+        */
+        .contact-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: var(--bg-card);
+            border-radius: 40px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+        @media (max-width: 800px) { .contact-box { grid-template-columns: 1fr; } }
+
+        .contact-info { padding: 60px; background: rgba(255,255,255,0.02); }
+        .contact-form { padding: 60px; }
+
+        .contact-item { display: flex; gap: 20px; margin-bottom: 40px; }
+        .c-icon { width: 50px; height: 50px; background: var(--accent); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+        
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 600; color: var(--text-secondary); }
+        .input-group input, .input-group textarea {
+            width: 100%; padding: 14px; background: var(--bg-dark); border: 1px solid var(--border);
+            border-radius: 12px; color: white; font-family: inherit; transition: 0.3s;
+        }
+        .input-group input:focus { border-color: var(--accent); box-shadow: 0 0 10px var(--accent-glow); }
+
+        footer { padding: 60px 0; text-align: center; border-top: 1px solid var(--border); margin-top: 100px; }
+        .footer-logo { margin-bottom: 20px; opacity: 0.8; }
+
+    </style>
 </head>
 <body>
 
-  <nav class="navbar">
-    <div class="container" style="display:flex; justify-content:space-between; width:100%; align-items:center;">
-      <a href="#" class="logo">CAVIDAN<span>.</span></a>
-      <div class="lang-switcher">
-        <button class="lang-btn active" data-lang="az">AZ</button>
-        <button class="lang-btn" data-lang="en">EN</button>
-      </div>
+    <div id="preloader">
+        <div class="loader-ring"></div>
     </div>
-  </nav>
 
-  <header class="hero">
-    <div class="container">
-      <div class="hero-wrapper">
-        <div class="hero-content">
-          <div class="badge" data-az="İndi Əlçatandır" data-en="Available Now">İndi Əlçatandır</div>
-          <h1 data-az="İdeyanızı Real Sayta Çeviririk" data-en="Turning Ideas Into Real Websites">İdeyanızı Real Sayta Çeviririk</h1>
-          <p data-az="Sürətli, müasir və mobil cihazlarda mükəmməl görünən saytların hazırlanması. Cəmi 24 saat ərzində təhvil."
-             data-en="Building fast, modern websites that look perfect on mobile. Delivered in just 24 hours.">
-            Sürətli, müasir və mobil cihazlarda mükəmməl görünən saytların hazırlanması. Cəmi 24 saat ərzində təhvil.
-          </p>
-          <div class="hero-actions">
-            <a href="#contact" class="btn btn-primary" data-az="Layihəyə Başla" data-en="Start Project">Layihəyə Başla</a>
-            <a href="#portfolio" class="btn btn-outline" data-az="İşlərim" data-en="My Work">İşlərim</a>
-          </div>
-          <div class="hero-stats">
-            <div class="stat-item">
-              <h3 data-az="1-2 Gün" data-en="1-2 Days">1-2 Gün</h3>
-              <p data-az="Təhvil müddəti" data-en="Delivery time">Təhvil müddəti</p>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo-wrapper">
+                <div class="logo-box">C</div>
+                <div class="logo-text">CAVIDAN</div>
+            </a>
+            <div class="lang-toggle">
+                <button class="lang-btn active" data-lang="az">AZ</button>
+                <button class="lang-btn" data-lang="en">EN</button>
             </div>
-            <div class="stat-item">
-              <h3 data-az="100%" data-en="100%">100%</h3>
-              <p data-az="Mobil uyğunluq" data-en="Mobile ready">Mobil uyğunluq</p>
+        </div>
+    </nav>
+
+    <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 25px;">
+
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-badge" data-az="Veb Texnologiyalar Mütəxəssisi" data-en="Web Technologies Specialist">Veb Texnologiyalar Mütəxəssisi</div>
+                <h1 data-az="İdeyanızı <span>Rəqəmsal</span> Şahəsərə Çevirək" data-en="Let's Turn Your Idea Into a <span>Digital</span> Masterpiece">İdeyanızı <span>Rəqəmsal</span> Şahəsərə Çevirək</h1>
+                <p data-az="Müasir bizneslər üçün yüksək performanslı, sürətli və estetik veb həllərin tək ünvanı. Gələcəyin saytını bu gün quraq." 
+                   data-en="The one-stop destination for high-performance, fast, and aesthetic web solutions for modern businesses. Let's build the site of the future today.">
+                    Müasir bizneslər üçün yüksək performanslı, sürətli və estetik veb həllərin tək ünvanı. Gələcəyin saytını bu gün quraq.
+                </p>
+                <div class="btn-group">
+                    <a href="#contact" class="btn btn-main" data-az="Layihəyə başla" data-en="Start project">Layihəyə başla</a>
+                    <a href="#portfolio" class="btn btn-sec" data-az="Portfolioya bax" data-en="View portfolio">Portfolioya bax</a>
+                </div>
             </div>
-          </div>
-        </div>
-        <div class="hero-card">
-          <div class="card" style="border-left: 5px solid var(--accent);">
-            <h3 data-az="Niyə Mən?" data-en="Why Me?">Niyə Mən?</h3>
-            <ul class="service-list" style="margin-top: 15px;">
-              <li data-az="Sürətli və səliqəli kod" data-en="Fast and clean code">Sürətli və səliqəli kod</li>
-              <li data-az="Münasib qiymət" data-en="Affordable pricing">Münasib qiymət</li>
-              <li data-az="Daimi dəstək" data-en="Lifetime support">Daimi dəstək</li>
-              <li data-az="SEO dostu struktur" data-en="SEO friendly structure">SEO dostu struktur</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
 
-  <section id="services" class="section">
-    <div class="container">
-      <div class="section-header">
-        <h2 data-az="Xidmətlərim" data-en="My Services">Xidmətlərim</h2>
-        <p data-az="Sizin üçün təklif etdiyim əsas rəqəmsal xidmətlər." data-en="Core digital services I offer for you.">
-          Sizin üçün təklif etdiyim əsas rəqəmsal xidmətlər.
-        </p>
-      </div>
-      <div class="services-grid">
-        <div class="card service-card">
-          <h3 data-az="Landing Page" data-en="Landing Page">Landing Page</h3>
-          <p data-az="Reklam və satış üçün nəzərdə tutulmuş bir səhifəlik təsirli saytlar." data-en="Impressionable one-pagers designed for ads and sales.">
-            Reklam və satış üçün nəzərdə tutulmuş bir səhifəlik təsirli saytlar.
-          </p>
-          <ul class="service-list">
-            <li data-az="Yüksək sürət" data-en="High speed">Yüksək sürət</li>
-            <li data-az="WhatsApp inteqrasiyası" data-en="WhatsApp integration">WhatsApp inteqrasiyası</li>
-          </ul>
-        </div>
-        <div class="card service-card">
-          <h3 data-az="Şəxsi Portfolio" data-en="Personal Portfolio">Şəxsi Portfolio</h3>
-          <p data-az="İşlərinizi və CV-nizi peşəkar formada dünyaya göstərin." data-en="Showcase your work and CV to the world professionally.">
-            İşlərinizi və CV-nizi peşəkar formada dünyaya göstərin.
-          </p>
-          <ul class="service-list">
-            <li data-az="Qalereya bölməsi" data-en="Gallery section">Qalereya bölməsi</li>
-            <li data-az="Sosial linklər" data-en="Social links">Sosial linklər</li>
-          </ul>
-        </div>
-        <div class="card service-card">
-          <h3 data-az="Korporativ Sayt" data-en="Corporate Site">Korporativ Sayt</h3>
-          <p data-az="Kiçik və orta bizneslər üçün rəsmi internet nümayəndəliyi." data-en="Official web representation for small and medium businesses.">
-            Kiçik və orta bizneslər üçün rəsmi internet nümayəndəliyi.
-          </p>
-          <ul class="service-list">
-            <li data-az="Xidmətlər bölməsi" data-en="Services section">Xidmətlər bölməsi</li>
-            <li data-az="Xəritə və Kontakt" data-en="Map and Contact">Xəritə və Kontakt</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
+            <div class="stats-bar reveal">
+                <div class="stat-card">
+                    <h3 data-az="24 Saat" data-en="24 Hours">24 Saat</h3>
+                    <p data-az="Sürətli Təhvil" data-en="Fast Delivery">Sürətli Təhvil</p>
+                </div>
+                <div class="stat-card">
+                    <h3 data-az="50+" data-en="50+">50+</h3>
+                    <p data-az="Uğurlu Layihə" data-en="Successful Projects">Uğurlu Layihə</p>
+                </div>
+                <div class="stat-card">
+                    <h3 data-az="100%" data-en="100%">100%</h3>
+                    <p data-az="Müştəri Razılığı" data-en="Client Satisfaction">Müştəri Razılığı</p>
+                </div>
+                <div class="stat-card">
+                    <h3 data-az="7/24" data-en="7/24">7/24</h3>
+                    <p data-az="Texniki Dəstək" data-en="Technical Support">Texniki Dəstək</p>
+                </div>
+            </div>
+        </section>
 
-  <section id="portfolio" class="section" style="background: rgba(255,255,255,0.02);">
-    <div class="container">
-      <div class="section-header">
-        <h2 data-az="Son İşlərim" data-en="Recent Works">Son İşlərim</h2>
-        <p data-az="Hazırladığım bəzi nümunəvi layihələr." data-en="Some sample projects I've built.">
-          Hazırladığım bəzi nümunəvi layihələr.
-        </p>
-      </div>
-      <div class="portfolio-grid">
-        <div class="card work-item">
-          <div class="work-image"></div>
-          <div class="work-info">
-            <h3 data-az="Modern Landing" data-en="Modern Landing">Modern Landing</h3>
-            <p data-az="Biznes üçün xüsusi dizayn." data-en="Custom design for business.">Biznes üçün xüsusi dizayn.</p>
-          </div>
-        </div>
-        <div class="card work-item">
-          <div class="work-image"></div>
-          <div class="work-info">
-            <h3 data-az="Developer Portfolio" data-en="Developer Portfolio">Developer Portfolio</h3>
-            <p data-az="Minimalist və təmiz kod." data-en="Minimalist and clean code.">Minimalist və təmiz kod.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+        <section id="services" class="section reveal">
+            <div class="section-title">
+                <h2 data-az="Nələr Bacarıram?" data-en="What Can I Do?">Nələr Bacarıram?</h2>
+                <p data-az="Biznesinizin ehtiyaclarına uyğun özəl xidmətlər." data-en="Custom services tailored to your business needs.">Biznesinizin ehtiyaclarına uyğun özəl xidmətlər.</p>
+            </div>
+            <div class="grid-container">
+                <div class="glass-card">
+                    <div class="card-icon">⚡</div>
+                    <h3 data-az="Landing Page" data-en="Landing Page">Landing Page</h3>
+                    <p style="margin-top:15px; color: var(--text-secondary);" data-az="Satışlarınızı artırmaq üçün nəzərdə tutulmuş yüksək konversiyalı tək səhifəlik saytlar." data-en="High-conversion one-page sites designed to increase your sales.">Satışlarınızı artırmaq üçün nəzərdə tutulmuş yüksək konversiyalı tək səhifəlik saytlar.</p>
+                </div>
+                <div class="glass-card">
+                    <div class="card-icon">🎨</div>
+                    <h3 data-az="UI/UX Dizayn" data-en="UI/UX Design">UI/UX Dizayn</h3>
+                    <p style="margin-top:15px; color: var(--text-secondary);" data-az="İstifadəçilərinizi heyran edəcək müasir və rahat interfeyslərin hazırlanması." data-en="Creating modern and convenient interfaces that will impress your users.">İstifadəçilərinizi heyran edəcək müasir və rahat interfeyslərin hazırlanması.</p>
+                </div>
+                <div class="glass-card">
+                    <div class="card-icon">📱</div>
+                    <h3 data-az="Responsivlik" data-en="Responsiveness">Responsivlik</h3>
+                    <p style="margin-top:15px; color: var(--text-secondary);" data-az="Saytınızın telefon, planşet və kompüterlərdə mükəmməl görünməsinin təmini." data-en="Ensuring your site looks perfect on phones, tablets, and computers.">Saytınızın telefon, planşet və kompüterlərdə mükəmməl görünməsinin təmini.</p>
+                </div>
+            </div>
+        </section>
 
-  <section id="pricing" class="section">
-    <div class="container">
-      <div class="section-header" style="text-align: center;">
-        <h2 data-az="Sərfəli Qiymətlər" data-en="Affordable Pricing">Sərfəli Qiymətlər</h2>
-        <p style="margin: 0 auto;" data-az="Hər büdcəyə uyğun paketlərimiz var." data-en="We have packages for every budget.">
-          Hər büdcəyə uyğun paketlərimiz var.
-        </p>
-      </div>
-      <div class="pricing-grid">
-        <div class="card price-card">
-          <h3 data-az="Start" data-en="Start">Start</h3>
-          <div class="price-value">$30<span>/tək səhifə</span></div>
-          <ul class="service-list" style="text-align: left; margin-bottom: 25px;">
-            <li data-az="1-2 günə təhvil" data-en="1-2 days delivery">1-2 günə təhvil</li>
-            <li data-az="Pulsuz Hosting" data-en="Free Hosting">Pulsuz Hosting</li>
-          </ul>
-          <a href="#contact" class="btn btn-outline btn--full" data-az="Sifariş Et" data-en="Order Now">Sifariş Et</a>
-        </div>
-        <div class="card price-card featured">
-          <h3 data-az="Professional" data-en="Professional">Professional</h3>
-          <div class="price-value">$70<span>/3 səhifə</span></div>
-          <ul class="service-list" style="text-align: left; margin-bottom: 25px;">
-            <li data-az="WhatsApp düyməsi" data-en="WhatsApp button">WhatsApp düyməsi</li>
-            <li data-az="Daha çox düzəliş" data-en="More revisions">Daha çox düzəliş</li>
-            <li data-az="SEO ilkin ayarlar" data-en="Basic SEO setup">SEO ilkin ayarlar</li>
-          </ul>
-          <a href="#contact" class="btn btn-primary btn--full" data-az="Sifariş Et" data-en="Order Now">Sifariş Et</a>
-        </div>
-        <div class="card price-card">
-          <h3 data-az="Biznes" data-en="Business">Biznes</h3>
-          <div class="price-value">$120<span>/5+ səhifə</span></div>
-          <ul class="service-list" style="text-align: left; margin-bottom: 25px;">
-            <li data-az="Özəl dizayn" data-en="Custom design">Özəl dizayn</li>
-            <li data-az="Logo hədiyyə" data-en="Free logo">Logo hədiyyə</li>
-          </ul>
-          <a href="#contact" class="btn btn-outline btn--full" data-az="Sifariş Et" data-en="Order Now">Sifariş Et</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="section-header">
-        <h2 data-az="Sual-Cavab" data-en="FAQ">Sual-Cavab</h2>
-      </div>
-      <div class="faq-container">
-        <details>
-          <summary data-az="Sayt üçün əlavə aylıq ödəniş varmı?" data-en="Is there a monthly fee for the site?">Sayt üçün əlavə aylıq ödəniş varmı?</summary>
-          <div class="faq-content" data-az="Xeyr, GitHub Pages istifadə etsəniz hosting tam pulsuzdur." data-en="No, hosting is completely free if you use GitHub Pages.">Xeyr, GitHub Pages istifadə etsəniz hosting tam pulsuzdur.</div>
-        </details>
-        <details>
-          <summary data-az="Ödənişi necə etməliyəm?" data-en="How should I make the payment?">Ödənişi necə etməliyəm?</summary>
-          <div class="faq-content" data-az="İş təhvil verildikdən sonra kart vasitəsilə ödəyə bilərsiniz." data-en="You can pay via card after the work is delivered.">İş təhvil verildikdən sonra kart vasitəsilə ödəyə bilərsiniz.</div>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <section i
+        <section id="portfolio" class="section reveal">
+            <div class="section-title">
+                <h2 data-az="Seçilmiş İşlər" data-en="Featured Works">Seçilmiş İşlər</h2>
+            </div>
+            <div class="grid-container">
+                <div class="glass-card">
+                    <div class="portfolio-img">PROJECT ALPHA</div>
+                    <h3 data-az="E-Ticarət Platforması" data-en="E-Commerce Platform">E-Ticarət Platforması</h3>
+                    <p style="font-size: 14px; opacity:0.6; margin-top:5px;">Next.js / Tailwind CSS</p>
+                </div>
+                <div class="glass-card">
+                    <div class="portfolio-img">PROJECT BETA</div>
+                    <h3 data-az="Hüquqşünas Portfoliom" data-en="Lawyer Portfolio">Hüquqşünas Portfoliom</h3>
+                    <p style="font-size: 14px; opacity:0.6; margin-top:5px;">HTML5 / GSAP Animations</p>
+                </div>
+                <div class="gla
