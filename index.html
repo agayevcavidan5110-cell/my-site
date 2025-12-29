@@ -3,371 +3,253 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cavidan Agayev | Senior Web Architect & Full-Stack Developer</title>
+    <title>Cavidan Agayev | Digital Experience Architect</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Outfit:wght@100;300;400;600;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
 
     <style>
         /* ================================================================
-           1. CSS ARCHITECTURE & ROOT VARIABLES
+           1. CSS ARCHITECTURE & ROOT (Sətir: 1-150)
            ================================================================
         */
         :root {
+            --bg-body: #050505;
+            --bg-card: #0e0e12;
             --primary: #58a6ff;
-            --primary-rgb: 88, 166, 255;
             --secondary: #bc8cff;
-            --bg-deep: #010409;
-            --bg-card: #0d1117;
-            --bg-card-hover: #161b22;
-            --text-main: #f0f6fc;
-            --text-dim: #8b949e;
-            --border: #30363d;
-            --success: #3fb950;
-            --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            --container: 1300px;
+            --text-main: #ffffff;
+            --text-muted: #a1a1aa;
+            --border: rgba(255, 255, 255, 0.08);
+            --gradient: linear-gradient(135deg, #58a6ff 0%, #bc8cff 100%);
+            --transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        /* Reset & Base */
-        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
-        html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
-            background: var(--bg-deep); 
-            color: var(--text-main); 
-            font-family: 'Outfit', sans-serif; 
-            overflow-x: hidden;
-            cursor: none; /* Custom mouse logic */
+            background: var(--bg-body); color: var(--text-main); 
+            font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.7;
+            overflow-x: hidden; cursor: none;
         }
 
-        /* ================================================================
-           2. CUSTOM CURSOR SYSTEM
-           ================================================================
-        */
-        #cursor {
-            width: 8px; height: 8px; background: #fff; border-radius: 50%;
-            position: fixed; pointer-events: none; z-index: 10000;
-        }
-        #cursor-follower {
-            width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.3); border-radius: 50%;
-            position: fixed; pointer-events: none; z-index: 9999;
-            transition: transform 0.15s ease-out;
-        }
+        /* Custom Cursor Logic */
+        #cursor { width: 10px; height: 10px; background: #fff; border-radius: 50%; position: fixed; z-index: 10000; pointer-events: none; mix-blend-mode: difference; }
+        #follower { width: 40px; height: 40px; border: 1px solid var(--primary); border-radius: 50%; position: fixed; z-index: 9999; pointer-events: none; transition: 0.1s; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 30px; }
 
         /* ================================================================
-           3. ANIMATIONS & EFFECTS
+           2. NAVIGATION STYLES (Sətir: 151-250)
            ================================================================
         */
-        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-        @keyframes pulse { 0% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.2); opacity: 0.2; } 100% { transform: scale(1); opacity: 0.5; } }
-        
-        .reveal { opacity: 0; transform: translateY(50px); transition: var(--transition); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        /* ================================================================
-           4. NAVIGATION (Based on your image)
-           ================================================================
-        */
-        .navbar {
-            position: fixed; top: 0; left: 0; width: 100%; height: 90px;
+        nav {
+            position: fixed; top: 0; width: 100%; height: 90px;
             display: flex; align-items: center; z-index: 1000;
             transition: var(--transition);
-            border-bottom: 1px solid transparent;
         }
-        .navbar.scrolled {
-            height: 70px; background: rgba(1, 4, 9, 0.85); 
-            backdrop-filter: blur(20px); border-bottom-color: var(--border);
-        }
+        nav.active { background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); height: 75px; }
 
-        .nav-container {
-            width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 40px;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-
+        .nav-inner { width: 100%; display: flex; justify-content: space-between; align-items: center; }
         .logo { display: flex; align-items: center; gap: 15px; text-decoration: none; }
-        .logo-icon {
-            width: 45px; height: 45px; border: 2px solid var(--primary);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-family: 'Space Grotesk'; font-weight: 700; color: white;
-            box-shadow: 0 0 15px rgba(var(--primary-rgb), 0.4);
+        .logo-c { 
+            width: 45px; height: 45px; border: 2px solid var(--primary); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Space Grotesk'; font-weight: 700; color: #fff; font-size: 22px;
         }
-        .logo-text { font-family: 'Space Grotesk'; font-weight: 700; font-size: 28px; color: white; }
+        .logo-text { font-family: 'Space Grotesk'; font-weight: 700; font-size: 28px; color: #fff; letter-spacing: -1px; }
 
-        .nav-menu { display: flex; gap: 35px; list-style: none; }
-        .nav-link {
-            text-decoration: none; color: var(--text-dim); font-size: 13px;
-            text-transform: uppercase; letter-spacing: 2px; font-weight: 600;
-            transition: 0.3s; position: relative;
-        }
-        .nav-link:hover, .nav-link.active { color: var(--text-main); }
-        .nav-link.active::after {
-            content: ''; position: absolute; bottom: -5px; left: 0; width: 100%; height: 2px; background: var(--primary);
-        }
+        .links { display: flex; gap: 35px; list-style: none; }
+        .links a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+        .links a:hover { color: var(--primary); }
 
         /* ================================================================
-           5. HERO SECTION
+           3. HERO & TEXT CONTENT (Sətir: 251-450)
            ================================================================
         */
-        .hero { min-height: 100vh; display: flex; align-items: center; position: relative; padding-top: 100px; }
-        .hero-bg { position: absolute; top: 15%; right: -5%; width: 500px; height: 500px; background: var(--primary); filter: blur(180px); opacity: 0.12; z-index: -1; }
+        .hero { min-height: 100vh; display: flex; align-items: center; position: relative; }
+        .hero-h1 { font-size: clamp(40px, 8vw, 90px); font-weight: 800; line-height: 1.1; margin-bottom: 30px; letter-spacing: -4px; }
+        .grad-text { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-p { font-size: 20px; color: var(--text-muted); max-width: 600px; margin-bottom: 40px; }
 
-        .hero-h1 { font-size: clamp(45px, 9vw, 95px); font-weight: 900; line-height: 0.9; margin-bottom: 30px; letter-spacing: -4px; }
-        .gradient-text { background: linear-gradient(90deg, #fff, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero-p { font-size: 21px; color: var(--text-dim); max-width: 600px; margin-bottom: 50px; }
-
-        .btn-group { display: flex; gap: 20px; }
-        .btn {
-            padding: 20px 45px; border-radius: 12px; font-weight: 700; text-decoration: none;
-            transition: var(--transition); display: inline-flex; align-items: center; gap: 10px;
+        .btn { 
+            padding: 20px 40px; border-radius: 12px; font-weight: 700; text-decoration: none; 
+            display: inline-block; transition: var(--transition);
         }
-        .btn-primary { background: var(--primary); color: #000; box-shadow: 0 15px 30px rgba(var(--primary-rgb), 0.3); }
-        .btn-primary:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(var(--primary-rgb), 0.5); }
-        .btn-outline { border: 1px solid var(--border); color: #fff; }
-        .btn-outline:hover { background: var(--border); }
+        .btn-p { background: var(--primary); color: #000; box-shadow: 0 10px 30px rgba(88, 166, 255, 0.3); }
+        .btn-p:hover { transform: translateY(-5px); }
 
         /* ================================================================
-           6. SERVICES & CARDS
+           4. SECTIONS & CARDS (Sətir: 451-700)
            ================================================================
         */
-        .section { padding: 140px 0; }
-        .sec-head { margin-bottom: 80px; }
-        .sec-tag { color: var(--primary); text-transform: uppercase; letter-spacing: 5px; font-weight: 800; font-size: 13px; margin-bottom: 15px; display: block; }
-        .sec-title { font-size: 48px; font-weight: 800; }
+        .section { padding: 120px 0; border-bottom: 1px solid var(--border); }
+        .sec-title { font-size: 45px; font-weight: 800; margin-bottom: 60px; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card { background: var(--bg-card); padding: 40px; border-radius: 24px; border: 1px solid var(--border); transition: 0.4s; }
+        .card:hover { border-color: var(--primary); transform: translateY(-10px); }
+        .card-h3 { font-size: 24px; margin-bottom: 20px; color: var(--primary); }
+        .card-p { color: var(--text-muted); font-size: 16px; }
 
-        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-        .card {
-            background: var(--bg-card); padding: 50px; border-radius: 35px;
-            border: 1px solid var(--border); transition: 0.5s; position: relative; overflow: hidden;
-        }
-        .card:hover { transform: translateY(-15px); border-color: var(--primary); background: var(--bg-card-hover); }
-        .card-icon { font-size: 45px; color: var(--primary); margin-bottom: 30px; display: block; }
-        .card-h3 { font-size: 24px; margin-bottom: 20px; }
-        .card-p { color: var(--text-dim); line-height: 1.8; }
+        /* FAQ Logic */
+        .faq-box { margin-bottom: 15px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+        .faq-q { padding: 25px; cursor: pointer; font-weight: 700; display: flex; justify-content: space-between; background: var(--bg-card); }
+        .faq-a { padding: 0 25px; max-height: 0; overflow: hidden; transition: 0.4s; color: var(--text-muted); }
+        .faq-box.open .faq-a { padding: 20px 25px; max-height: 300px; }
 
         /* ================================================================
-           7. EXPERIENCE TIMELINE
+           5. FOOTER & CONTACT (Sətir: 701-1000)
            ================================================================
         */
-        .timeline { position: relative; max-width: 1000px; margin: 0 auto; }
-        .timeline::after { content: ''; position: absolute; width: 2px; background: var(--border); top: 0; bottom: 0; left: 50%; margin-left: -1px; }
-        .time-item { padding: 10px 40px; position: relative; background-color: inherit; width: 50%; }
-        .time-item::after { content: ''; position: absolute; width: 20px; height: 20px; right: -10px; background-color: var(--bg-deep); border: 4px solid var(--primary); top: 15px; border-radius: 50%; z-index: 1; }
-        .left { left: 0; }
-        .right { left: 50%; }
-        .right::after { left: -10px; }
-        .time-content { padding: 30px; background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); }
+        .contact-flex { display: flex; gap: 80px; flex-wrap: wrap; }
+        .c-info { flex: 1; min-width: 300px; }
+        .c-form { flex: 1.5; min-width: 300px; }
+        .input { width: 100%; padding: 20px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; color: #fff; margin-bottom: 20px; }
 
-        /* ================================================================
-           8. CONTACT & FOOTER (Sətir: 500-1000)
-           ================================================================
-        */
-        .contact-box {
-            background: var(--bg-card); border-radius: 50px; border: 1px solid var(--border);
-            display: grid; grid-template-columns: 1fr 1.2fr; overflow: hidden;
-        }
-        .c-sidebar { padding: 80px; background: var(--primary); color: #000; }
-        .c-form-area { padding: 80px; }
-
-        .input-group { margin-bottom: 30px; position: relative; }
-        .input-field {
-            width: 100%; background: transparent; border: none;
-            border-bottom: 1px solid var(--border); padding: 15px 0;
-            color: white; font-size: 18px; transition: 0.3s;
-        }
-        .input-field:focus { border-bottom-color: var(--primary); }
-        .input-label { position: absolute; top: 15px; left: 0; color: var(--text-dim); pointer-events: none; transition: 0.3s; }
-        .input-field:focus ~ .input-label, .input-field:valid ~ .input-label { top: -15px; font-size: 13px; color: var(--primary); }
-
-        footer { padding: 100px 0 50px; border-top: 1px solid var(--border); text-align: center; }
-        .f-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; text-align: left; margin-bottom: 80px; }
-        .f-title { font-size: 18px; margin-bottom: 25px; color: #fff; }
-        .f-links { list-style: none; }
-        .f-links li { margin-bottom: 15px; }
-        .f-links a { text-decoration: none; color: var(--text-dim); transition: 0.3s; }
-        .f-links a:hover { color: var(--primary); }
-
-        /* Mobile Optimization */
-        @media (max-width: 992px) {
-            .grid-3, .contact-box, .f-grid { grid-template-columns: 1fr; }
-            .timeline::after { left: 31px; }
-            .time-item { width: 100%; padding-left: 70px; padding-right: 25px; }
-            .right { left: 0%; }
-            .time-item::after { left: 21px; }
-            .nav-menu { display: none; }
-        }
+        footer { padding: 60px 0; text-align: center; color: var(--text-muted); font-size: 14px; }
 
     </style>
 </head>
 <body>
 
     <div id="cursor"></div>
-    <div id="cursor-follower"></div>
+    <div id="follower"></div>
 
-    <nav class="navbar">
-        <div class="nav-container">
+    <nav>
+        <div class="container nav-inner">
             <a href="#" class="logo">
-                <div class="logo-icon">C</div>
+                <div class="logo-c">C</div>
                 <span class="logo-text">CAVIDAN</span>
             </a>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link active">Ana Səhifə</a></li>
-                <li><a href="#services" class="nav-link">Xidmətlər</a></li>
-                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
-                <li><a href="#contact" class="nav-link">Əlaqə</a></li>
+            <ul class="links">
+                <li><a href="#about">Haqqımda</a></li>
+                <li><a href="#services">Xidmətlər</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">Əlaqə</a></li>
             </ul>
-            <div class="nav-btns">
-                <button id="lang-toggle" style="background:none; border:1px solid var(--border); color:white; padding:8px 15px; border-radius:8px; cursor:pointer;">AZ</button>
-            </div>
         </div>
     </nav>
 
     <main>
-        <section class="hero" id="home">
-            <div class="container" style="width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 40px;">
-                <div class="hero-content reveal">
-                    <p class="sec-tag">Digital Design Expert</p>
-                    <h1 class="hero-h1">Mükəmməl <span class="gradient-text">Veb Saytlar</span><br>İnşa Edirik.</h1>
-                    <p class="hero-p">Cavidan Agayev ilə rəqəmsal dünyada brendinizi zirvəyə daşıyın. Ən müasir texnologiyalar və qüsursuz UI/UX dizayn.</p>
-                    <div class="btn-group">
-                        <a href="#contact" class="btn btn-primary">Layihəyə Başla →</a>
-                        <a href="#portfolio" class="btn btn-outline">İşlərimə Bax</a>
-                    </div>
-                </div>
-            </div>
-            <div class="hero-bg"></div>
-        </section>
-
-        <section class="section" style="background: var(--bg-card);">
-            <div class="container" style="width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 40px;">
-                <div class="grid-3" style="text-align: center;">
-                    <div class="reveal">
-                        <h2 style="font-size: 60px; color: var(--primary);">50+</h2>
-                        <p style="color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px;">Uğurlu Layihə</p>
-                    </div>
-                    <div class="reveal">
-                        <h2 style="font-size: 60px; color: var(--secondary);">4+</h2>
-                        <p style="color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px;">İllik Təcrübə</p>
-                    </div>
-                    <div class="reveal">
-                        <h2 style="font-size: 60px; color: var(--success);">100%</h2>
-                        <p style="color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px;">Müştəri Razılığı</p>
-                    </div>
-                </div>
+        <section class="hero container">
+            <div>
+                <h1 class="hero-h1">Biznesinizi <br> <span class="grad-text">Rəqəmsallaşdırın.</span></h1>
+                <p class="hero-p">
+                    Salam, mən Cavidan Agayev. Müasir dövrün tələblərinə uyğun, yüksək performanslı və estetik veb həllər təqdim edirəm. 
+                    Mənim məqsədim brendinizin onlayn dünyada ən doğru şəkildə təmsil olunmasını təmin etməkdir.
+                </p>
+                <a href="#contact" class="btn btn-p">Layihəniz Hazırdır? →</a>
             </div>
         </section>
 
-        <section class="section" id="services">
-            <div class="container" style="width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 40px;">
-                <div class="sec-head reveal">
-                    <span class="sec-tag">Xidmətlər</span>
-                    <h2 class="sec-title">Nə təklif edirik?</h2>
+        <section class="section container" id="about">
+            <div class="contact-flex">
+                <div class="c-info">
+                    <h2 class="sec-title">Haqqımda</h2>
+                    <p class="hero-p">
+                        Mən proqram təminatı sahəsində 4 ildən artıq təcrübəyə malik bir mütəxəssisəm. Bu illər ərzində 50-dən çox layihədə 
+                        həm dizayner, həm də tərtibatçı kimi iştirak etmişəm. <br><br>
+                        Hər bir layihəyə sadəcə kod kimi deyil, bir biznes aləti kimi yanaşıram. İstifadəçi təcrübəsi (UX) mənim üçün hər zaman ön plandadır.
+                    </p>
                 </div>
-                <div class="grid-3">
-                    <div class="card reveal">
-                        <span class="card-icon">🌐</span>
-                        <h3 class="card-h3">Veb Proqramlaşdırma</h3>
-                        <p class="card-p">Sürətli, təhlükəsiz və bütün cihazlara uyğun (responsive) veb-saytların hazırlanması.</p>
+                <div class="grid">
+                    <div class="card">
+                        <h3 class="card-h3">Məqsədim</h3>
+                        <p class="card-p">Müştərilərimə sadəcə sayt deyil, satışlarını artıran rəqəmsal ekosistem qurmaq.</p>
                     </div>
-                    <div class="card reveal">
-                        <span class="card-icon">🎨</span>
-                        <h3 class="card-h3">UI/UX Dizayn</h3>
-                        <p class="card-p">İstifadəçi təcrübəsinə əsaslanan müasir və estetik interfeyslərin dizayn edilməsi.</p>
-                    </div>
-                    <div class="card reveal">
-                        <span class="card-icon">🚀</span>
-                        <h3 class="card-h3">SEO Optimizasiya</h3>
-                        <p class="card-p">Saytınızın Google və digər axtarış sistemlərində ön sıralarda çıxması üçün texniki həllər.</p>
-                    </div>
-                    <div class="card reveal">
-                        <span class="card-icon">📊</span>
-                        <h3 class="card-h3">Brendinq</h3>
-                        <p class="card-p">Biznesiniz üçün unikal loqo və korporativ stilin yaradılması.</p>
-                    </div>
-                    <div class="card reveal">
-                        <span class="card-icon">📱</span>
-                        <h3 class="card-h3">Mobil Tətbiqlər</h3>
-                        <p class="card-p">iOS və Android platformaları üçün yüksək keyfiyyətli mobil tətbiqlərin yaradılması.</p>
-                    </div>
-                    <div class="card reveal">
-                        <span class="card-icon">🔒</span>
-                        <h3 class="card-h3">Kiber Təhlükəsizlik</h3>
-                        <p class="card-p">Məlumatlarınızın qorunması üçün ən son təhlükəsizlik protokollarının tətbiqi.</p>
+                    <div class="card">
+                        <h3 class="card-h3">Texnologiyalar</h3>
+                        <p class="card-p">React, Next.js, Node.js və müasir CSS arxitekturaları ilə işləyirəm.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="section" style="background: #050505;">
-            <div class="container" style="width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 40px;">
-                <div class="sec-head reveal" style="text-align: center;">
-                    <span class="sec-tag">Yol Xəritəsi</span>
-                    <h2 class="sec-title">Təcrübə və Təhsil</h2>
+        <section class="section container" id="services">
+            <h2 class="sec-title">Peşəkar Xidmətlər</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3 class="card-h3">Veb Proqramlaşdırma</h3>
+                    <p class="card-p">Tamamilə sıfırdan, sizin biznes ehtiyaclarınıza uyğun, sürətli və təhlükəsiz veb-saytların kodlanması. Bura korporativ saytlar, portfoliolar və landing page-lər daxildir.</p>
                 </div>
-                <div class="timeline">
-                    <div class="time-item left reveal">
-                        <div class="time-content">
-                            <h3 style="color: var(--primary);">Senior Developer</h3>
-                            <p style="margin: 10px 0;">Digital Agency X (2022 - Hal-hazırda)</p>
-                            <p class="card-p">Böyük miqyaslı E-ticarət platformalarının memarlığının qurulması.</p>
-                        </div>
-                    </div>
-                    <div class="time-item right reveal">
-                        <div class="time-content">
-                            <h3 style="color: var(--secondary);">Web Designer</h3>
-                            <p style="margin: 10px 0;">Freelance (2020 - 2022)</p>
-                            <p class="card-p">50-dən çox yerli və xarici brend üçün vizual konsepsiyaların hazırlanması.</p>
-                        </div>
-                    </div>
+                <div class="card">
+                    <h3 class="card-h3">E-Ticarət Həlləri</h3>
+                    <p class="card-p">Məhsullarınızı onlayn satmaq üçün tam təchiz olunmuş mağazalar. Ödəniş sistemlərinin inteqrasiyası və anbar idarəetmə panellərinin qurulması.</p>
+                </div>
+                <div class="card">
+                    <h3 class="card-h3">UI/UX Dizayn</h3>
+                    <p class="card-p">İstifadəçilərin saytınızda rahat hərəkət etməsi və brendinizlə emosional bağ qurması üçün xüsusi dizayn konsepsiyalarının hazırlanması.</p>
                 </div>
             </div>
         </section>
 
-        <section class="section" id="contact">
-            <div class="container" style="width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 40px;">
-                <div class="contact-box reveal">
-                    <div class="c-sidebar">
-                        <h2 style="font-size: 45px; line-height: 1.1; margin-bottom: 30px;">Gəlin Birgə İşləyək</h2>
-                        <p style="font-size: 18px; opacity: 0.8; margin-bottom: 40px;">Hər hansı bir layihəniz və ya sualınız var? Mənə yazın, ən qısa zamanda cavablandıracam.</p>
-                        <div style="margin-bottom: 20px;">
-                            <p><strong>Email:</strong> agayevcavidan678@mail.com</p>
-                        </div>
-                        <div>
-                            <p><strong>WhatsApp:</strong> +994 51 446 51 10</p>
-                        </div>
-                    </div>
-                    <div class="c-form-area">
-                        <form id="portfolioForm">
-                            <div class="input-group">
-                                <input type="text" class="input-field" required>
-                                <label class="input-label">Adınız</label>
-                            </div>
-                            <div class="input-group">
-                                <input type="email" class="input-field" required>
-                                <label class="input-label">Email Ünvanınız</label>
-                            </div>
-                            <div class="input-group">
-                                <textarea class="input-field" rows="4" required></textarea>
-                                <label class="input-label">Mesajınız</label>
-                            </div>
-                            <button type="submit" class="btn btn-primary" style="width: 100%; border: none; cursor: pointer;">Mesajı Göndər</button>
-                        </form>
-                    </div>
+        <section class="section container" id="faq">
+            <h2 class="sec-title">Tez-tez Verilən Suallar</h2>
+            <div class="faq-box">
+                <div class="faq-q">Layihənin hazırlanması nə qədər vaxt aparır? <span>+</span></div>
+                <div class="faq-a">Layihənin həcmindən asılı olaraq, sadə bir landing page 3-5 gün, mürəkkəb korporativ saytlar isə 2-4 həftə ərzində təhvil verilir.</div>
+            </div>
+            <div class="faq-box">
+                <div class="faq-q">Saytlar mobil cihazlara uyğundurmu? <span>+</span></div>
+                <div class="faq-a">Bəli, hazırladığım bütün saytlar "Responsive Design" standartlarına uyğun olaraq bütün telefon, planşet və kompüterlərdə mükəmməl görünür.</div>
+            </div>
+            <div class="faq-box">
+                <div class="faq-q">SEO xidməti daxildirmi? <span>+</span></div>
+                <div class="faq-a">Bəli, kodlama zamanı bütün texniki SEO qaydalarına əməl olunur ki, saytınız Google-da daha asan tapılsın.</div>
+            </div>
+        </section>
+
+        <section class="section container" id="contact">
+            <div class="contact-flex">
+                <div class="c-info">
+                    <h2 class="sec-title">Bizimlə Əlaqə</h2>
+                    <p class="hero-p">Layihəniz haqqında danışmağa hazırsınız? Aşağıdakı formu doldurun və ya birbaşa WhatsApp vasitəsilə mənə yazın.</p>
+                    <p><strong>Email:</strong> agayevcavidan678@mail.com</p>
+                    <p><strong>Telefon:</strong> +994 51 446 51 10</p>
+                </div>
+                <div class="c-form">
+                    <form>
+                        <input type="text" class="input" placeholder="Adınız və Soyadınız" required>
+                        <input type="email" class="input" placeholder="E-poçt ünvanınız" required>
+                        <textarea class="input" rows="5" placeholder="Layihə haqqında qısa məlumat"></textarea>
+                        <button type="submit" class="btn btn-p" style="width: 100%; border: none; cursor: pointer;">Göndər</button>
+                    </form>
                 </div>
             </div>
         </section>
     </main>
 
     <footer>
-        <div class="container" style="width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 40px;">
-            <div class="f-grid">
-                <div>
-                    <a href="#" class="logo" style="margin-bottom: 25px;">
-                        <div class="logo-icon">C</div>
-                        <span class="logo-text">CAVIDAN</span>
-                    </a>
-                    <p style="color: var(--text-dim);">Dizayn və proqramlaşdırmanın qovuşduğu nöqtə. Biznesinizi rəqəmsal gələcəyə hazırlayırıq.</p>
-                </div>
-                <div>
-                    <h4 class="f-title">Naviqasiya</h4>
-                    <ul class="f-links">
- 
+        <div class="container">
+            <p>&copy; 2025 Cavidan Agayev. Bütün hüquqlar qorunur. Made with passion in Azerbaijan.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Custom Cursor Engine
+        const cursor = document.getElementById('cursor');
+        const follower = document.getElementById('follower');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            follower.style.left = e.clientX - 15 + 'px';
+            follower.style.top = e.clientY - 15 + 'px';
+        });
+
+        // FAQ Toggle Engine
+        document.querySelectorAll('.faq-q').forEach(q => {
+            q.addEventListener('click', () => {
+                q.parentElement.classList.toggle('open');
+            });
+        });
+
+        // Navbar Scroll Engine
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if(window.scrollY > 50) nav.classList.add('active');
+            else nav.classList.remove('active');
+        });
+    </script>
+</body>
+</html>
