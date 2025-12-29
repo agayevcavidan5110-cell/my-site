@@ -1,255 +1,811 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="az">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cavidan Agayev | Digital Experience Architect</title>
+  <!-- ============================================================
+       CAVIDAN • PREMIUM LANDING (Single-file)
+       - AZ/EN language switch (localStorage)
+       - Pricing: $30 / $70 / $100
+       - WhatsApp floating CTA
+       - SEO + OpenGraph + JSON-LD
+       - Smooth animations + reduced-motion support
+       - Accessible, responsive, clean architecture
+       ============================================================ -->
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Cavidan | Vebsayt Xidmətləri</title>
+  <meta name="description" content="Sürətli, səliqəli və mobil uyğun vebsaytlar. Landing page, portfolio/CV və biznes saytı. 1–5 günə təhvil, WhatsApp ilə əlaqə." />
+  <meta name="theme-color" content="#0b1020" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Cavidan | Vebsayt Xidmətləri" />
+  <meta property="og:description" content="Sürətli, səliqəli və mobil uyğun vebsaytlar. Landing page, portfolio/CV və biznes saytı. WhatsApp ilə əlaqə." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="az_AZ" />
+  <meta property="og:url" content="https://agayevcavidan5110-cell.github.io/my-site/" />
+  <!-- og:image (optional): add your image later
+  <meta property="og:image" content="https://.../og.png" />
+  -->
+
+  <!-- Twitter cards -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Cavidan | Vebsayt Xidmətləri" />
+  <meta name="twitter:description" content="Sürətli, səliqəli və mobil uyğun vebsaytlar. Landing page, portfolio/CV və biznes saytı." />
+
+  <!-- Fonts (optional but premium look) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- ============================================================
+       STYLE
+       ============================================================ -->
+  <style>
+    /* ----------------------------
+       0) Reset + Root variables
+       ---------------------------- */
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{ margin:0; }
+
+    :root{
+      --bg0:#070a14;
+      --bg1:#0b1020;
+      --card:#101833;
+      --card2:#0e1530;
+      --border: rgba(255,255,255,.10);
+      --text:#e9ecff;
+      --muted: rgba(233,236,255,.78);
+      --muted2: rgba(233,236,255,.62);
+
+      --a:#4f7cff;       /* primary */
+      --a2:#9d7bff;      /* secondary */
+      --good:#4ade80;    /* green */
+      --warn:#fbbf24;    /* yellow */
+
+      --shadow: 0 18px 60px rgba(0,0,0,.42);
+      --shadow2: 0 12px 24px rgba(0,0,0,.35);
+
+      --r12:12px;
+      --r16:16px;
+      --r20:20px;
+      --r24:24px;
+
+      --max: 1120px;
+
+      --ease: cubic-bezier(.2,.9,.2,1);
+      --t: .35s var(--ease);
+
+      --grid-gap: 14px;
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      html{ scroll-behavior:auto; }
+      *{ animation:none !important; transition:none !important; }
+    }
+
+    /* ----------------------------
+       1) Base typography & layout
+       ---------------------------- */
+    body{
+      font-family:"Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(900px 500px at 18% 0%, rgba(79,124,255,.18), transparent 60%),
+        radial-gradient(700px 420px at 82% 12%, rgba(157,123,255,.16), transparent 60%),
+        radial-gradient(900px 500px at 45% 110%, rgba(79,124,255,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      color: var(--text);
+      line-height: 1.55;
+      overflow-x:hidden;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    img{ max-width:100%; display:block; }
+    button{ font-family:inherit; }
+
+    .container{
+      width:100%;
+      max-width: var(--max);
+      margin:0 auto;
+      padding: 0 18px;
+    }
+
+    /* ----------------------------
+       2) Subtle background mesh
+       ---------------------------- */
+    .bg-grid{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.35;
+      background:
+        linear-gradient(transparent 0 95%, rgba(255,255,255,.04) 95% 100%),
+        linear-gradient(90deg, transparent 0 95%, rgba(255,255,255,.04) 95% 100%);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(closest-side at 50% 30%, rgba(0,0,0,1), rgba(0,0,0,0));
+      z-index:0;
+    }
+
+    /* ----------------------------
+       3) Top nav
+       ---------------------------- */
+    .nav{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter: blur(16px);
+      background: rgba(7,10,20,.45);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .nav__inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 12px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      min-width: 200px;
+    }
+
+    .logo{
+      width:44px;
+      height:44px;
+      border-radius: 14px;
+      background:
+        radial-gradient(16px 16px at 30% 30%, rgba(255,255,255,.65), transparent 55%),
+        linear-gradient(135deg, rgba(79,124,255,1), rgba(157,123,255,1));
+      box-shadow: 0 12px 24px rgba(79,124,255,.22);
+      display:grid;
+      place-items:center;
+      border: 1px solid rgba(255,255,255,.14);
+    }
+
+    .logo svg{
+      width:26px;
+      height:26px;
+      display:block;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.25));
+    }
+
+    .brand__text{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+      line-height:1.1;
+    }
+
+    .brand__name{
+      font-family:"Space Grotesk", system-ui, sans-serif;
+      font-weight: 700;
+      letter-spacing:.3px;
+      font-size: 18px;
+    }
+
+    .brand__tag{
+      color: var(--muted2);
+      font-size: 12px;
+      letter-spacing:.2px;
+    }
+
+    .nav__links{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+
+    .pill{
+      padding: 9px 12px;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 999px;
+      background: rgba(16,24,51,.50);
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing:.2px;
+      transition: var(--t);
+    }
+    .pill:hover{
+      transform: translateY(-1px);
+      border-color: rgba(79,124,255,.45);
+      color: var(--text);
+      background: rgba(16,24,51,.78);
+    }
+
+    .nav__right{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      min-width: 200px;
+      justify-content:flex-end;
+    }
+
+    .lang{
+      display:flex;
+      gap: 8px;
+      padding: 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(16,24,51,.45);
+    }
+
+    .lang button{
+      appearance:none;
+      border:0;
+      background:transparent;
+      color: var(--muted);
+      font-weight: 900;
+      font-size: 12px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      cursor:pointer;
+      transition: var(--t);
+      letter-spacing:.3px;
+    }
+    .lang button.active{
+      color:#06102a;
+      background: linear-gradient(135deg, rgba(79,124,255,1), rgba(157,123,255,1));
+      box-shadow: 0 10px 18px rgba(79,124,255,.22);
+    }
+
+    .mini-cta{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(79,124,255,.45);
+      background: rgba(79,124,255,.10);
+      transition: var(--t);
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing:.2px;
+      color: var(--text);
+    }
+    .mini-cta:hover{
+      transform: translateY(-1px);
+      background: rgba(79,124,255,.18);
+    }
+
+    /* Mobile nav */
+    .nav__mobile{
+      display:none;
+      gap: 8px;
+      align-items:center;
+    }
+    .burger{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(16,24,51,.55);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 10px 12px;
+      cursor:pointer;
+      font-weight:900;
+    }
+
+    @media (max-width: 920px){
+      .nav__links{ display:none; }
+      .nav__mobile{ display:flex; }
+      .brand{ min-width:auto; }
+      .nav__right{ min-width:auto; }
+    }
+
+    /* ----------------------------
+       4) Hero
+       ---------------------------- */
+    .hero{
+      position:relative;
+      z-index:1;
+      padding: 42px 0 18px;
+    }
+
+    .hero__grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 18px;
+      align-items:stretch;
+    }
+
+    @media (max-width: 920px){
+      .hero__grid{ grid-template-columns: 1fr; }
+    }
+
+    .hero__left{
+      padding: 16px;
+      border-radius: var(--r24);
+      background:
+        radial-gradient(500px 200px at 20% 10%, rgba(79,124,255,.22), transparent 55%),
+        radial-gradient(420px 180px at 80% 20%, rgba(157,123,255,.16), transparent 55%),
+        rgba(16,24,51,.28);
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .hero__left:before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      background:
+        linear-gradient(135deg, rgba(79,124,255,.16), rgba(157,123,255,.12));
+      opacity:.35;
+      mask-image: radial-gradient(closest-side at 20% 20%, rgba(0,0,0,1), rgba(0,0,0,0));
+      pointer-events:none;
+    }
+
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(11,16,32,.55);
+      color: var(--muted);
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing:.35px;
+      position:relative;
+      z-index:1;
+    }
+
+    .k-dot{
+      width:10px;height:10px;border-radius:50%;
+      background: linear-gradient(135deg, var(--a), var(--a2));
+      box-shadow: 0 10px 18px rgba(79,124,255,.26);
+    }
+
+    .h1{
+      font-size: clamp(34px, 4.8vw, 54px);
+      line-height:1.05;
+      margin: 16px 0 10px;
+      letter-spacing: -0.9px;
+      font-weight: 900;
+      position:relative;
+      z-index:1;
+    }
+
+    .grad{
+      background: linear-gradient(135deg, rgba(79,124,255,1), rgba(157,123,255,1));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    .lead{
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 68ch;
+      margin: 0 0 18px;
+      position:relative;
+      z-index:1;
+    }
+
+    .cta-row{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top: 8px;
+      position:relative;
+      z-index:1;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(16,24,51,.55);
+      color: var(--text);
+      font-weight: 900;
+      letter-spacing:.2px;
+      cursor:pointer;
+      transition: var(--t);
+      user-select:none;
+    }
+    .btn:hover{
+      transform: translateY(-2px);
+      border-color: rgba(79,124,255,.45);
+      background: rgba(16,24,51,.78);
+    }
+
+    .btn--primary{
+      border: 1px solid rgba(79,124,255,.55);
+      background: linear-gradient(135deg, rgba(79,124,255,1), rgba(157,123,255,1));
+      color: #06102a;
+      box-shadow: 0 18px 40px rgba(79,124,255,.22);
+    }
+    .btn--primary:hover{ transform: translateY(-2px); }
+
+    .trust{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 10px;
+      margin-top: 18px;
+      position:relative;
+      z-index:1;
+    }
+    @media (max-width: 520px){
+      .trust{ grid-template-columns: 1fr; }
+    }
+
+    .trust__item{
+      padding: 12px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(16,24,51,.40);
+    }
+    .trust__num{
+      font-weight: 1000;
+      font-size: 18px;
+      color: var(--text);
+      letter-spacing:-.2px;
+    }
+    .trust__label{
+      margin-top:2px;
+      color: var(--muted2);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing:.2px;
+    }
+
+    .hero__right{
+      border-radius: var(--r24);
+      border: 1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(520px 220px at 30% 10%, rgba(79,124,255,.18), transparent 55%),
+        rgba(16,24,51,.42);
+      box-shadow: var(--shadow2);
+      padding: 16px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero__right:after{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      background: linear-gradient(180deg, rgba(255,255,255,.10), transparent 50%);
+      opacity:.25;
+      pointer-events:none;
+    }
+
+    .quick{
+      position:relative;
+      z-index:1;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(79,124,255,.45);
+      background: rgba(79,124,255,.10);
+      color: var(--text);
+      font-weight: 1000;
+      font-size: 12px;
+      letter-spacing:.2px;
+    }
+
+    .q-list{
+      margin-top: 14px;
+      display:grid;
+      gap: 10px;
+    }
+
+    .q-row{
+      display:flex;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 12px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(11,16,32,.40);
+      color: var(--muted);
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .q-row b{
+      color: var(--good);
+      font-weight: 1000;
+    }
+
+    .q-cta{
+      margin-top: 14px;
+      width:100%;
+    }
+
+    /* ----------------------------
+       5) Sections
+       ---------------------------- */
+    .section{
+      position:relative;
+      z-index:1;
+      padding: 52px 0;
+    }
+
+    .section__head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap:wrap;
+      margin-bottom: 14px;
+    }
+
+    .h2{
+      margin:0;
+      font-size: 26px;
+      letter-spacing:-.5px;
+      font-weight: 1000;
+    }
+
+    .sub{
+      margin:0;
+      color: var(--muted);
+      max-width: 78ch;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: var(--grid-gap);
+    }
+    @media (max-width: 920px){
+      .grid3{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+      border-radius: var(--r24);
+      border: 1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(420px 180px at 30% 10%, rgba(79,124,255,.14), transparent 55%),
+        rgba(16,24,51,.40);
+      box-shadow: var(--shadow2);
+      padding: 16px;
+      transition: var(--t);
+      position:relative;
+      overflow:hidden;
+    }
+    .card:hover{
+      transform: translateY(-3px);
+      border-color: rgba(79,124,255,.45);
+    }
+
+    .card__title{
+      font-weight: 1000;
+      margin: 10px 0 6px;
+      font-size: 16px;
+      letter-spacing:-.2px;
+    }
+    .card__desc{
+      color: var(--muted);
+      margin:0;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .icon{
+      width: 42px;height:42px;border-radius: 16px;
+      display:grid;place-items:center;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(11,16,32,.35);
+      color: var(--text);
+    }
+
+    .icon svg{ width:22px;height:22px; }
+
+    .ul{
+      margin: 12px 0 0;
+      padding: 0 0 0 18px;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .ul li{ margin: 7px 0; }
+
+    /* Work cards */
+    .work{
+      display:block;
+      text-decoration:none;
+    }
+    .thumb{
+      height: 120px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(220px 120px at 35% 35%, rgba(79,124,255,.20), transparent 60%),
+        radial-gradient(220px 120px at 70% 50%, rgba(157,123,255,.18), transparent 60%),
+        linear-gradient(135deg, rgba(11,16,32,.9), rgba(16,24,51,.65));
+      display:flex;
+      align-items:flex-end;
+      justify-content:flex-start;
+      padding: 12px;
+    }
+    .thumb__tag{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.28);
+      border: 1px solid rgba(255,255,255,.10);
+      color: var(--text);
+      font-weight: 1000;
+      font-size: 12px;
+    }
+
+    /* Pricing */
+    .pricing{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: var(--grid-gap);
+    }
+    @media (max-width: 920px){
+      .pricing{ grid-template-columns: 1fr; }
+    }
+
+    .price{
+      padding: 18px;
+      border-radius: var(--r24);
+      border: 1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(420px 180px at 25% 10%, rgba(79,124,255,.16), transparent 55%),
+        rgba(16,24,51,.42);
+      box-shadow: var(--shadow2);
+      position:relative;
+      overflow:hidden;
+      transition: var(--t);
+    }
+    .price:hover{
+      transform: translateY(-3px);
+      border-color: rgba(79,124,255,.45);
+    }
+
+    .price--hot{
+      border-color: rgba(79,124,255,.65);
+      box-shadow: 0 22px 60px rgba(79,124,255,.18);
+    }
+
+    .hot{
+      position:absolute;
+      top: 14px;
+      right: 14px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-weight: 1000;
+      font-size: 12px;
+      background: linear-gradient(135deg, rgba(79,124,255,1), rgba(157,123,255,1));
+      color:#06102a;
+      border: 1px solid rgba(255,255,255,.18);
+    }
+
+    .price__name{
+      font-weight: 1000;
+      font-size: 16px;
+      letter-spacing:-.2px;
+      margin:0;
+    }
+
+    .price__sub{
+      margin: 4px 0 0;
+      color: var(--muted2);
+      font-weight: 800;
+      font-size: 12px;
+    }
+
+    .price__value{
+      margin: 14px 0 6px;
+      font-size: 36px;
+      font-weight: 1100;
+      letter-spacing:-1px;
+    }
+
+    .price__value span{
+      color: var(--muted2);
+      font-weight: 900;
+      font-size: 14px;
+      margin-left: 6px;
+      letter-spacing:0;
+    }
+
+    .checks{
+      list-style:none;
+      padding: 0;
+      margin: 12px 0 0;
+      display:grid;
+      gap: 10px;
+    }
+
+    .checks li{
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      color: var(--muted);
+      font-weight: 800;
+      font-size: 13px;
+    }
+    .checks li i{
+      font-style:normal;
+      color: var(--good);
+      font-weight: 1100;
+      margin-top: 1px;
+    }
+
+    /* FAQ */
+    .faq{
+      display:grid;
+      gap: 10px;
+    }
+
+    .faq__item{
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 18px;
+      background: rgba(16,24,51,.35);
+      overflow:hidden;
+    }
+
+    .faq__q{
+      width:100%;
+      text-align:left;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 14px 14px;
+      background: transparent;
+      border:0;
+      color: var(--text);
+      cursor:pointer;
+      font-weight: 1000;
+      letter-spacing:-.2px;
+    }
+
+    .faq__q span{
+      color: var(--muted2);
+      font-weight: 900;
+      font-size: 12px;
+      padding: 6px 8px;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 999px;
+      background: rgba(11,16,32,.40);
+    }
+
+    .faq__a{
+      max-height: 0;
+      overflow:hidden;
+      transition: max-height .35s var(--ease);
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .faq__a p{
+      margin:0;
+      padding: 12px 14px 14px;
+      color: var(--muted);
+      font-weight: 750;
+      font-size: 13px;
+    }
+    .faq__item.open .faq__a{ max-height: 220px; }
+
+    /* Contact */
+    .contact{
+      display:grid;
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
-
-    <style>
-        /* ================================================================
-           1. CSS ARCHITECTURE & ROOT (Sətir: 1-150)
-           ================================================================
-        */
-        :root {
-            --bg-body: #050505;
-            --bg-card: #0e0e12;
-            --primary: #58a6ff;
-            --secondary: #bc8cff;
-            --text-main: #ffffff;
-            --text-muted: #a1a1aa;
-            --border: rgba(255, 255, 255, 0.08);
-            --gradient: linear-gradient(135deg, #58a6ff 0%, #bc8cff 100%);
-            --transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background: var(--bg-body); color: var(--text-main); 
-            font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.7;
-            overflow-x: hidden; cursor: none;
-        }
-
-        /* Custom Cursor Logic */
-        #cursor { width: 10px; height: 10px; background: #fff; border-radius: 50%; position: fixed; z-index: 10000; pointer-events: none; mix-blend-mode: difference; }
-        #follower { width: 40px; height: 40px; border: 1px solid var(--primary); border-radius: 50%; position: fixed; z-index: 9999; pointer-events: none; transition: 0.1s; }
-
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 30px; }
-
-        /* ================================================================
-           2. NAVIGATION STYLES (Sətir: 151-250)
-           ================================================================
-        */
-        nav {
-            position: fixed; top: 0; width: 100%; height: 90px;
-            display: flex; align-items: center; z-index: 1000;
-            transition: var(--transition);
-        }
-        nav.active { background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); height: 75px; }
-
-        .nav-inner { width: 100%; display: flex; justify-content: space-between; align-items: center; }
-        .logo { display: flex; align-items: center; gap: 15px; text-decoration: none; }
-        .logo-c { 
-            width: 45px; height: 45px; border: 2px solid var(--primary); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-family: 'Space Grotesk'; font-weight: 700; color: #fff; font-size: 22px;
-        }
-        .logo-text { font-family: 'Space Grotesk'; font-weight: 700; font-size: 28px; color: #fff; letter-spacing: -1px; }
-
-        .links { display: flex; gap: 35px; list-style: none; }
-        .links a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
-        .links a:hover { color: var(--primary); }
-
-        /* ================================================================
-           3. HERO & TEXT CONTENT (Sətir: 251-450)
-           ================================================================
-        */
-        .hero { min-height: 100vh; display: flex; align-items: center; position: relative; }
-        .hero-h1 { font-size: clamp(40px, 8vw, 90px); font-weight: 800; line-height: 1.1; margin-bottom: 30px; letter-spacing: -4px; }
-        .grad-text { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero-p { font-size: 20px; color: var(--text-muted); max-width: 600px; margin-bottom: 40px; }
-
-        .btn { 
-            padding: 20px 40px; border-radius: 12px; font-weight: 700; text-decoration: none; 
-            display: inline-block; transition: var(--transition);
-        }
-        .btn-p { background: var(--primary); color: #000; box-shadow: 0 10px 30px rgba(88, 166, 255, 0.3); }
-        .btn-p:hover { transform: translateY(-5px); }
-
-        /* ================================================================
-           4. SECTIONS & CARDS (Sətir: 451-700)
-           ================================================================
-        */
-        .section { padding: 120px 0; border-bottom: 1px solid var(--border); }
-        .sec-title { font-size: 45px; font-weight: 800; margin-bottom: 60px; }
-        
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .card { background: var(--bg-card); padding: 40px; border-radius: 24px; border: 1px solid var(--border); transition: 0.4s; }
-        .card:hover { border-color: var(--primary); transform: translateY(-10px); }
-        .card-h3 { font-size: 24px; margin-bottom: 20px; color: var(--primary); }
-        .card-p { color: var(--text-muted); font-size: 16px; }
-
-        /* FAQ Logic */
-        .faq-box { margin-bottom: 15px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-        .faq-q { padding: 25px; cursor: pointer; font-weight: 700; display: flex; justify-content: space-between; background: var(--bg-card); }
-        .faq-a { padding: 0 25px; max-height: 0; overflow: hidden; transition: 0.4s; color: var(--text-muted); }
-        .faq-box.open .faq-a { padding: 20px 25px; max-height: 300px; }
-
-        /* ================================================================
-           5. FOOTER & CONTACT (Sətir: 701-1000)
-           ================================================================
-        */
-        .contact-flex { display: flex; gap: 80px; flex-wrap: wrap; }
-        .c-info { flex: 1; min-width: 300px; }
-        .c-form { flex: 1.5; min-width: 300px; }
-        .input { width: 100%; padding: 20px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; color: #fff; margin-bottom: 20px; }
-
-        footer { padding: 60px 0; text-align: center; color: var(--text-muted); font-size: 14px; }
-
-    </style>
-</head>
-<body>
-
-    <div id="cursor"></div>
-    <div id="follower"></div>
-
-    <nav>
-        <div class="container nav-inner">
-            <a href="#" class="logo">
-                <div class="logo-c">C</div>
-                <span class="logo-text">CAVIDAN</span>
-            </a>
-            <ul class="links">
-                <li><a href="#about">Haqqımda</a></li>
-                <li><a href="#services">Xidmətlər</a></li>
-                <li><a href="#faq">FAQ</a></li>
-                <li><a href="#contact">Əlaqə</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <main>
-        <section class="hero container">
-            <div>
-                <h1 class="hero-h1">Biznesinizi <br> <span class="grad-text">Rəqəmsallaşdırın.</span></h1>
-                <p class="hero-p">
-                    Salam, mən Cavidan Agayev. Müasir dövrün tələblərinə uyğun, yüksək performanslı və estetik veb həllər təqdim edirəm. 
-                    Mənim məqsədim brendinizin onlayn dünyada ən doğru şəkildə təmsil olunmasını təmin etməkdir.
-                </p>
-                <a href="#contact" class="btn btn-p">Layihəniz Hazırdır? →</a>
-            </div>
-        </section>
-
-        <section class="section container" id="about">
-            <div class="contact-flex">
-                <div class="c-info">
-                    <h2 class="sec-title">Haqqımda</h2>
-                    <p class="hero-p">
-                        Mən proqram təminatı sahəsində 4 ildən artıq təcrübəyə malik bir mütəxəssisəm. Bu illər ərzində 50-dən çox layihədə 
-                        həm dizayner, həm də tərtibatçı kimi iştirak etmişəm. <br><br>
-                        Hər bir layihəyə sadəcə kod kimi deyil, bir biznes aləti kimi yanaşıram. İstifadəçi təcrübəsi (UX) mənim üçün hər zaman ön plandadır.
-                    </p>
-                </div>
-                <div class="grid">
-                    <div class="card">
-                        <h3 class="card-h3">Məqsədim</h3>
-                        <p class="card-p">Müştərilərimə sadəcə sayt deyil, satışlarını artıran rəqəmsal ekosistem qurmaq.</p>
-                    </div>
-                    <div class="card">
-                        <h3 class="card-h3">Texnologiyalar</h3>
-                        <p class="card-p">React, Next.js, Node.js və müasir CSS arxitekturaları ilə işləyirəm.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section container" id="services">
-            <h2 class="sec-title">Peşəkar Xidmətlər</h2>
-            <div class="grid">
-                <div class="card">
-                    <h3 class="card-h3">Veb Proqramlaşdırma</h3>
-                    <p class="card-p">Tamamilə sıfırdan, sizin biznes ehtiyaclarınıza uyğun, sürətli və təhlükəsiz veb-saytların kodlanması. Bura korporativ saytlar, portfoliolar və landing page-lər daxildir.</p>
-                </div>
-                <div class="card">
-                    <h3 class="card-h3">E-Ticarət Həlləri</h3>
-                    <p class="card-p">Məhsullarınızı onlayn satmaq üçün tam təchiz olunmuş mağazalar. Ödəniş sistemlərinin inteqrasiyası və anbar idarəetmə panellərinin qurulması.</p>
-                </div>
-                <div class="card">
-                    <h3 class="card-h3">UI/UX Dizayn</h3>
-                    <p class="card-p">İstifadəçilərin saytınızda rahat hərəkət etməsi və brendinizlə emosional bağ qurması üçün xüsusi dizayn konsepsiyalarının hazırlanması.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="section container" id="faq">
-            <h2 class="sec-title">Tez-tez Verilən Suallar</h2>
-            <div class="faq-box">
-                <div class="faq-q">Layihənin hazırlanması nə qədər vaxt aparır? <span>+</span></div>
-                <div class="faq-a">Layihənin həcmindən asılı olaraq, sadə bir landing page 3-5 gün, mürəkkəb korporativ saytlar isə 2-4 həftə ərzində təhvil verilir.</div>
-            </div>
-            <div class="faq-box">
-                <div class="faq-q">Saytlar mobil cihazlara uyğundurmu? <span>+</span></div>
-                <div class="faq-a">Bəli, hazırladığım bütün saytlar "Responsive Design" standartlarına uyğun olaraq bütün telefon, planşet və kompüterlərdə mükəmməl görünür.</div>
-            </div>
-            <div class="faq-box">
-                <div class="faq-q">SEO xidməti daxildirmi? <span>+</span></div>
-                <div class="faq-a">Bəli, kodlama zamanı bütün texniki SEO qaydalarına əməl olunur ki, saytınız Google-da daha asan tapılsın.</div>
-            </div>
-        </section>
-
-        <section class="section container" id="contact">
-            <div class="contact-flex">
-                <div class="c-info">
-                    <h2 class="sec-title">Bizimlə Əlaqə</h2>
-                    <p class="hero-p">Layihəniz haqqında danışmağa hazırsınız? Aşağıdakı formu doldurun və ya birbaşa WhatsApp vasitəsilə mənə yazın.</p>
-                    <p><strong>Email:</strong> agayevcavidan678@mail.com</p>
-                    <p><strong>Telefon:</strong> +994 51 446 51 10</p>
-                </div>
-                <div class="c-form">
-                    <form>
-                        <input type="text" class="input" placeholder="Adınız və Soyadınız" required>
-                        <input type="email" class="input" placeholder="E-poçt ünvanınız" required>
-                        <textarea class="input" rows="5" placeholder="Layihə haqqında qısa məlumat"></textarea>
-                        <button type="submit" class="btn btn-p" style="width: 100%; border: none; cursor: pointer;">Göndər</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Cavidan Agayev. Bütün hüquqlar qorunur. Made with passion in Azerbaijan.</p>
-        </div>
-    </footer>
-
-    <script>
-        // Custom Cursor Engine
-        const cursor = document.getElementById('cursor');
-        const follower = document.getElementById('follower');
-
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            follower.style.left = e.clientX - 15 + 'px';
-            follower.style.top = e.clientY - 15 + 'px';
-        });
-
-        // FAQ Toggle Engine
-        document.querySelectorAll('.faq-q').forEach(q => {
-            q.addEventListener('click', () => {
-                q.parentElement.classList.toggle('open');
-            });
-        });
-
-        // Navbar Scroll Engine
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if(window.scrollY > 50) nav.classList.add('active');
-            else nav.classList.remove('active');
-        });
-    </script>
-</body>
-</html>
