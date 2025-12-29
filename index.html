@@ -3,342 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cavidan Agayev | Digital Experience Architect</title>
+    <title>Cavidan Agayev | Senior Web Architect & Full-Stack Developer</title>
     
-    <meta name="description" content="Cavidan Agayev - Professional Freelance Web Developer & Designer. Müasir və sürətli veb-saytların hazırlanması.">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@100;300;400;600;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Outfit:wght@100;300;400;600;900&display=swap" rel="stylesheet">
 
     <style>
-        /* =========================================
-           1. CORE VARIABLES & THEMES
-           =========================================
+        /* ================================================================
+           1. CSS ARCHITECTURE & ROOT VARIABLES
+           ================================================================
         */
         :root {
-            --primary: #6366f1;
-            --primary-glow: rgba(99, 102, 241, 0.5);
-            --secondary: #a855f7;
-            --dark-bg: #030712;
-            --dark-card: #111827;
-            --dark-border: #1f2937;
-            --text-white: #f9fafb;
-            --text-gray: #9ca3af;
-            --success: #10b981;
-            --glass: rgba(17, 24, 39, 0.7);
-            --transition-slow: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-fast: all 0.2s ease;
+            --primary: #58a6ff;
+            --primary-rgb: 88, 166, 255;
+            --secondary: #bc8cff;
+            --bg-deep: #010409;
+            --bg-card: #0d1117;
+            --bg-card-hover: #161b22;
+            --text-main: #f0f6fc;
+            --text-dim: #8b949e;
+            --border: #30363d;
+            --success: #3fb950;
+            --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            --container: 1300px;
         }
 
-        /* =========================================
-           2. RESET & BASE STYLES
-           =========================================
-        */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            cursor: none; /* Custom Cursor istifadə edəcəyik */
-        }
-
-        html {
-            scroll-behavior: smooth;
-            scrollbar-width: thin;
-            scrollbar-color: var(--primary) var(--dark-bg);
-        }
-
-        body {
-            background-color: var(--dark-bg);
-            color: var(--text-white);
-            font-family: 'Outfit', sans-serif;
+        /* Reset & Base */
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        html { scroll-behavior: smooth; }
+        body { 
+            background: var(--bg-deep); 
+            color: var(--text-main); 
+            font-family: 'Outfit', sans-serif; 
             overflow-x: hidden;
-            line-height: 1.6;
+            cursor: none; /* Custom mouse logic */
         }
 
-        .container {
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 0 40px;
-        }
-
-        /* =========================================
-           3. CUSTOM CURSOR
-           =========================================
+        /* ================================================================
+           2. CUSTOM CURSOR SYSTEM
+           ================================================================
         */
         #cursor {
-            width: 10px; height: 10px;
-            background: var(--primary);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.1s ease;
-            box-shadow: 0 0 15px var(--primary-glow);
+            width: 8px; height: 8px; background: #fff; border-radius: 50%;
+            position: fixed; pointer-events: none; z-index: 10000;
         }
-
         #cursor-follower {
-            width: 35px; height: 35px;
-            border: 1px solid var(--primary);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9998;
-            transition: transform 0.2s ease, top 0.2s ease, left 0.2s ease;
-            opacity: 0.5;
+            width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.3); border-radius: 50%;
+            position: fixed; pointer-events: none; z-index: 9999;
+            transition: transform 0.15s ease-out;
         }
 
-        /* =========================================
-           4. ANIMATIONS
-           =========================================
+        /* ================================================================
+           3. ANIMATIONS & EFFECTS
+           ================================================================
         */
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        @keyframes pulse { 0% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.2); opacity: 0.2; } 100% { transform: scale(1); opacity: 0.5; } }
+        
+        .reveal { opacity: 0; transform: translateY(50px); transition: var(--transition); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        @keyframes pulse-glow {
-            0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
-            70% { box-shadow: 0 0 0 15px rgba(99, 102, 241, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
-        }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: var(--transition-slow);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* =========================================
-           5. NAVIGATION (DETALLI)
-           =========================================
+        /* ================================================================
+           4. NAVIGATION (Based on your image)
+           ================================================================
         */
-        .nav-header {
-            position: fixed;
-            top: 0; width: 100%;
-            height: 90px;
-            display: flex; align-items: center;
-            z-index: 1000;
-            transition: var(--transition-fast);
+        .navbar {
+            position: fixed; top: 0; left: 0; width: 100%; height: 90px;
+            display: flex; align-items: center; z-index: 1000;
+            transition: var(--transition);
             border-bottom: 1px solid transparent;
         }
-
-        .nav-header.scrolled {
-            height: 70px;
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            border-bottom-color: var(--dark-border);
+        .navbar.scrolled {
+            height: 70px; background: rgba(1, 4, 9, 0.85); 
+            backdrop-filter: blur(20px); border-bottom-color: var(--border);
         }
 
-        .nav-flex {
-            display: flex; justify-content: space-between; align-items: center; width: 100%;
+        .nav-container {
+            width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 40px;
+            display: flex; justify-content: space-between; align-items: center;
         }
 
-        /* Logo SVG Animasiyalı */
-        .logo-svg {
-            width: 50px; height: 50px;
-            fill: none; stroke: var(--primary);
-            stroke-width: 2;
-            stroke-dasharray: 200;
-            stroke-dashoffset: 200;
-            animation: dash 3s ease forwards;
+        .logo { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+        .logo-icon {
+            width: 45px; height: 45px; border: 2px solid var(--primary);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-family: 'Space Grotesk'; font-weight: 700; color: white;
+            box-shadow: 0 0 15px rgba(var(--primary-rgb), 0.4);
+        }
+        .logo-text { font-family: 'Space Grotesk'; font-weight: 700; font-size: 28px; color: white; }
+
+        .nav-menu { display: flex; gap: 35px; list-style: none; }
+        .nav-link {
+            text-decoration: none; color: var(--text-dim); font-size: 13px;
+            text-transform: uppercase; letter-spacing: 2px; font-weight: 600;
+            transition: 0.3s; position: relative;
+        }
+        .nav-link:hover, .nav-link.active { color: var(--text-main); }
+        .nav-link.active::after {
+            content: ''; position: absolute; bottom: -5px; left: 0; width: 100%; height: 2px; background: var(--primary);
         }
 
-        @keyframes dash { to { stroke-dashoffset: 0; } }
-
-        .logo-text {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700; font-size: 24px;
-            letter-spacing: -1px;
-            margin-left: 10px;
-        }
-
-        .nav-links { display: flex; gap: 40px; list-style: none; }
-        .nav-links a {
-            text-decoration: none; color: var(--text-gray);
-            font-size: 14px; font-weight: 600; text-transform: uppercase;
-            letter-spacing: 1px; transition: 0.3s;
-        }
-        .nav-links a:hover { color: var(--primary); }
-
-        /* =========================================
-           6. HERO SECTION (ULTRA)
-           =========================================
+        /* ================================================================
+           5. HERO SECTION
+           ================================================================
         */
-        .hero-section {
-            min-height: 100vh;
-            display: flex; align-items: center;
-            position: relative;
-            padding-top: 100px;
-            background: radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.05) 0%, transparent 50%);
+        .hero { min-height: 100vh; display: flex; align-items: center; position: relative; padding-top: 100px; }
+        .hero-bg { position: absolute; top: 15%; right: -5%; width: 500px; height: 500px; background: var(--primary); filter: blur(180px); opacity: 0.12; z-index: -1; }
+
+        .hero-h1 { font-size: clamp(45px, 9vw, 95px); font-weight: 900; line-height: 0.9; margin-bottom: 30px; letter-spacing: -4px; }
+        .gradient-text { background: linear-gradient(90deg, #fff, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-p { font-size: 21px; color: var(--text-dim); max-width: 600px; margin-bottom: 50px; }
+
+        .btn-group { display: flex; gap: 20px; }
+        .btn {
+            padding: 20px 45px; border-radius: 12px; font-weight: 700; text-decoration: none;
+            transition: var(--transition); display: inline-flex; align-items: center; gap: 10px;
         }
+        .btn-primary { background: var(--primary); color: #000; box-shadow: 0 15px 30px rgba(var(--primary-rgb), 0.3); }
+        .btn-primary:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(var(--primary-rgb), 0.5); }
+        .btn-outline { border: 1px solid var(--border); color: #fff; }
+        .btn-outline:hover { background: var(--border); }
 
-        .hero-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
-        }
-
-        .hero-title {
-            font-size: clamp(40px, 6vw, 85px);
-            line-height: 0.9; font-weight: 900;
-            margin-bottom: 30px;
-        }
-
-        .text-gradient {
-            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--primary));
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradientShift 4s linear infinite;
-        }
-
-        .hero-sub {
-            font-size: 20px; color: var(--text-gray);
-            margin-bottom: 40px; max-width: 550px;
-        }
-
-        /* Animated Button */
-        .magnetic-btn {
-            position: relative;
-            display: inline-block;
-            padding: 20px 45px;
-            background: var(--primary);
-            color: white;
-            text-decoration: none;
-            border-radius: 100px;
-            font-weight: 700;
-            overflow: hidden;
-            transition: var(--transition-fast);
-            z-index: 1;
-        }
-
-        .magnetic-btn::before {
-            content: '';
-            position: absolute; top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: var(--secondary);
-            transition: var(--transition-slow);
-            z-index: -1;
-        }
-
-        .magnetic-btn:hover::before { left: 0; }
-
-        .hero-visual {
-            position: relative;
-            height: 500px; width: 100%;
-            background: var(--dark-card);
-            border-radius: 40px;
-            border: 1px solid var(--dark-border);
-            display: flex; align-items: center; justify-content: center;
-            overflow: hidden;
-        }
-
-        .floating-orb {
-            position: absolute;
-            width: 250px; height: 250px;
-            background: var(--primary);
-            filter: blur(80px);
-            opacity: 0.3;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        /* =========================================
-           7. SERVICES & PROCESS
-           =========================================
+        /* ================================================================
+           6. SERVICES & CARDS
+           ================================================================
         */
-        .section-padding { padding: 150px 0; }
-        
-        .section-head { margin-bottom: 80px; }
-        .tagline { color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 3px; font-size: 13px; }
-        .title-large { font-size: 50px; font-weight: 800; margin-top: 10px; }
+        .section { padding: 140px 0; }
+        .sec-head { margin-bottom: 80px; }
+        .sec-tag { color: var(--primary); text-transform: uppercase; letter-spacing: 5px; font-weight: 800; font-size: 13px; margin-bottom: 15px; display: block; }
+        .sec-title { font-size: 48px; font-weight: 800; }
 
-        .services-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .card {
+            background: var(--bg-card); padding: 50px; border-radius: 35px;
+            border: 1px solid var(--border); transition: 0.5s; position: relative; overflow: hidden;
         }
+        .card:hover { transform: translateY(-15px); border-color: var(--primary); background: var(--bg-card-hover); }
+        .card-icon { font-size: 45px; color: var(--primary); margin-bottom: 30px; display: block; }
+        .card-h3 { font-size: 24px; margin-bottom: 20px; }
+        .card-p { color: var(--text-dim); line-height: 1.8; }
 
-        .service-card {
-            background: var(--dark-card);
-            border: 1px solid var(--dark-border);
-            padding: 50px;
-            border-radius: 30px;
-            transition: var(--transition-slow);
-            position: relative;
-        }
-
-        .service-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-15px);
-            background: #1a1f2e;
-        }
-
-        .s-icon {
-            font-size: 40px; color: var(--primary); margin-bottom: 30px;
-        }
-
-        /* =========================================
-           8. PORTFOLIO (GRID & FILTER)
-           =========================================
+        /* ================================================================
+           7. EXPERIENCE TIMELINE
+           ================================================================
         */
-        .portfolio-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px;
-        }
+        .timeline { position: relative; max-width: 1000px; margin: 0 auto; }
+        .timeline::after { content: ''; position: absolute; width: 2px; background: var(--border); top: 0; bottom: 0; left: 50%; margin-left: -1px; }
+        .time-item { padding: 10px 40px; position: relative; background-color: inherit; width: 50%; }
+        .time-item::after { content: ''; position: absolute; width: 20px; height: 20px; right: -10px; background-color: var(--bg-deep); border: 4px solid var(--primary); top: 15px; border-radius: 50%; z-index: 1; }
+        .left { left: 0; }
+        .right { left: 50%; }
+        .right::after { left: -10px; }
+        .time-content { padding: 30px; background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); }
 
-        .work-box {
-            position: relative;
-            border-radius: 35px;
-            overflow: hidden;
-            height: 450px;
-            background: #1c1c1c;
-        }
-
-        .work-overlay {
-            position: absolute; bottom: 0; left: 0; width: 100%;
-            padding: 40px;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            transform: translateY(20px);
-            opacity: 0; transition: 0.4s;
-        }
-
-        .work-box:hover .work-overlay {
-            transform: translateY(0); opacity: 1;
-        }
-
-        /* =========================================
-           9. CONTACT & FOOTER (DETALLI)
-           =========================================
+        /* ================================================================
+           8. CONTACT & FOOTER (Sətir: 500-1000)
+           ================================================================
         */
-        .contact-wrapper {
-            background: var(--dark-card);
-            border-radius: 50px;
-            border: 1px solid var(--dark-border);
-            display: grid; grid-template-columns: 1fr 1.2fr;
-            overflow: hidden;
+        .contact-box {
+            background: var(--bg-card); border-radius: 50px; border: 1px solid var(--border);
+            display: grid; grid-template-columns: 1fr 1.2fr; overflow: hidden;
         }
+        .c-sidebar { padding: 80px; background: var(--primary); color: #000; }
+        .c-form-area { padding: 80px; }
 
-        .contact-sidebar { padding: 70px; background: var(--primary); color: white; }
-        .contact-form-area { padding: 70px; }
-
-        .form-input {
-            width: 100%; background: transparent;
-            border: none; border-bottom: 1px solid var(--dark-border);
-            padding: 20px 0; color: white;
-            font-size: 18px; margin-bottom: 30px;
-            transition: 0.3s;
+        .input-group { margin-bottom: 30px; position: relative; }
+        .input-field {
+            width: 100%; background: transparent; border: none;
+            border-bottom: 1px solid var(--border); padding: 15px 0;
+            color: white; font-size: 18px; transition: 0.3s;
         }
+        .input-field:focus { border-bottom-color: var(--primary); }
+        .input-label { position: absolute; top: 15px; left: 0; color: var(--text-dim); pointer-events: none; transition: 0.3s; }
+        .input-field:focus ~ .input-label, .input-field:valid ~ .input-label { top: -15px; font-size: 13px; color: var(--primary); }
 
-        .form-input:focus { border-bottom-color: var(--primary); outline: none; }
+        footer { padding: 100px 0 50px; border-top: 1px solid var(--border); text-align: center; }
+        .f-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; text-align: left; margin-bottom: 80px; }
+        .f-title { font-size: 18px; margin-bottom: 25px; color: #fff; }
+        .f-links { list-style: none; }
+        .f-links li { margin-bottom: 15px; }
+        .f-links a { text-decoration: none; color: var(--text-dim); transition: 0.3s; }
+        .f-links a:hover { color: var(--primary); }
 
-        .footer-bottom {
-            padding: 50px 0; border-top: 1px solid var(--dark-border);
-            text-align: center; color: var(--text-gray); font-size: 14px;
+        /* Mobile Optimization */
+        @media (max-width: 992px) {
+            .grid-3, .contact-box, .f-grid { grid-template-columns: 1fr; }
+            .timeline::after { left: 31px; }
+            .time-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .right { left: 0%; }
+            .time-item::after { left: 21px; }
+            .nav-menu { display: none; }
         }
 
     </style>
@@ -348,167 +203,171 @@
     <div id="cursor"></div>
     <div id="cursor-follower"></div>
 
-    <header class="nav-header">
-        <div class="container nav-flex">
-            <a href="#" class="logo-wrapper" style="display:flex; align-items:center; text-decoration:none; color:white;">
-                <svg class="logo-svg" viewBox="0 0 100 100">
-                    <path d="M30,70 Q20,50 30,30 Q50,10 70,30 Q80,50 70,70" />
-                    <text x="40" y="60" fill="currentColor" stroke="none" style="font-weight:900; font-size:30px;">C</text>
-                </svg>
-                <span class="logo-text">CAVIDAN<span style="color:var(--primary);">.</span></span>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">C</div>
+                <span class="logo-text">CAVIDAN</span>
             </a>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#about" data-az="Haqqımda" data-en="About">Haqqımda</a></li>
-                    <li><a href="#services" data-az="Xidmətlər" data-en="Services">Xidmətlər</a></li>
-                    <li><a href="#work" data-az="Portfolio" data-en="Work">Portfolio</a></li>
-                    <li><a href="#contact" data-az="Əlaqə" data-en="Contact">Əlaqə</a></li>
-                </ul>
-            </nav>
-            <div class="lang-switch">
-                <button class="magnetic-btn" style="padding: 10px 20px; font-size: 12px;" onclick="toggleLang()">AZ / EN</button>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active">Ana Səhifə</a></li>
+                <li><a href="#services" class="nav-link">Xidmətlər</a></li>
+                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                <li><a href="#contact" class="nav-link">Əlaqə</a></li>
+            </ul>
+            <div class="nav-btns">
+                <button id="lang-toggle" style="background:none; border:1px solid var(--border); color:white; padding:8px 15px; border-radius:8px; cursor:pointer;">AZ</button>
             </div>
         </div>
-    </header>
+    </nav>
 
-    <section class="hero-section">
-        <div class="container">
-            <div class="hero-grid">
+    <main>
+        <section class="hero" id="home">
+            <div class="container" style="width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 40px;">
                 <div class="hero-content reveal">
-                    <p class="tagline" data-az="Gələcəyi inşa edirik" data-en="Building the future">Gələcəyi inşa edirik</p>
-                    <h1 class="hero-title">
-                        <span data-az="Müasir" data-en="Modern">Müasir</span> <br>
-                        <span class="text-gradient" data-az="Veb Arxitektura" data-en="Web Architecture">Veb Arxitektura</span>
-                    </h1>
-                    <p class="hero-sub" data-az="Mən Cavidan, rəqəmsal dünyada brendlərin vizual və texniki mükəmməlliyini təmin edən tam yığınlı (full-stack) tərtibatçıyam." data-en="I am Cavidan, a full-stack developer ensuring the visual and technical excellence of brands in the digital world.">
-                        Mən Cavidan, rəqəmsal dünyada brendlərin vizual və texniki mükəmməlliyini təmin edən tam yığınlı (full-stack) tərtibatçıyam.
-                    </p>
-                    <div class="hero-btns">
-                        <a href="#contact" class="magnetic-btn" data-az="Layihənizi başladın" data-en="Start your project">Layihənizi başladın</a>
-                    </div>
-                </div>
-                <div class="hero-visual reveal">
-                    <div class="floating-orb"></div>
-                    <div style="z-index: 2; font-size: 120px;">⚡</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="services" class="section-padding">
-        <div class="container">
-            <div class="section-head reveal">
-                <p class="tagline" data-az="Nələr təklif edirəm" data-en="My Services">Nələr təklif edirəm</p>
-                <h2 class="title-large" data-az="Peşəkar Həllər" data-en="Professional Solutions">Peşəkar Həllər</h2>
-            </div>
-            <div class="services-grid">
-                <div class="service-card reveal">
-                    <div class="s-icon">🌐</div>
-                    <h3 data-az="Veb Tərtibat" data-en="Web Development">Veb Tərtibat</h3>
-                    <p data-az="Sürətli, təhlükəsiz və bütün cihazlara uyğun (responsive) saytların hazırlanması." data-en="Building fast, secure, and responsive sites for all devices.">Sürətli, təhlükəsiz və bütün cihazlara uyğun (responsive) saytların hazırlanması.</p>
-                </div>
-                <div class="service-card reveal">
-                    <div class="s-icon">🎨</div>
-                    <h3 data-az="UI/UX Dizayn" data-en="UI/UX Design">UI/UX Dizayn</h3>
-                    <p data-az="İstifadəçi təcrübəsinə əsaslanan, müasir və minimalist dizayn yanaşması." data-en="Modern and minimalist design approach based on user experience.">İstifadəçi təcrübəsinə əsaslanan, müasir və minimalist dizayn yanaşması.</p>
-                </div>
-                <div class="service-card reveal">
-                    <div class="s-icon">🚀</div>
-                    <h3 data-az="SEO Optimizasiya" data-en="SEO Optimization">SEO Optimizasiya</h3>
-                    <p data-az="Saytınızın axtarış sistemlərində ön sıralarda çıxması üçün daxili tənzimləmələr." data-en="Internal settings for your site to rank high in search engines.">Saytınızın axtarış sistemlərində ön sıralarda çıxması üçün daxili tənzimləmələr.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="work" class="section-padding" style="background: #050a15;">
-        <div class="container">
-            <div class="section-head reveal">
-                <p class="tagline" data-az="Son layihələr" data-en="Recent work">Son layihələr</p>
-                <h2 class="title-large" data-az="Seçilmiş İşlərim" data-en="Selected Projects">Seçilmiş İşlərim</h2>
-            </div>
-            <div class="portfolio-grid">
-                <div class="work-box reveal">
-                    <div class="work-overlay">
-                        <h3>Fintech App</h3>
-                        <p>Modern banking dashboard</p>
-                    </div>
-                </div>
-                <div class="work-box reveal" style="margin-top: 50px;">
-                    <div class="work-overlay">
-                        <h3>Creative Studio</h3>
-                        <p>Portfolio for artists</p>
+                    <p class="sec-tag">Digital Design Expert</p>
+                    <h1 class="hero-h1">Mükəmməl <span class="gradient-text">Veb Saytlar</span><br>İnşa Edirik.</h1>
+                    <p class="hero-p">Cavidan Agayev ilə rəqəmsal dünyada brendinizi zirvəyə daşıyın. Ən müasir texnologiyalar və qüsursuz UI/UX dizayn.</p>
+                    <div class="btn-group">
+                        <a href="#contact" class="btn btn-primary">Layihəyə Başla →</a>
+                        <a href="#portfolio" class="btn btn-outline">İşlərimə Bax</a>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+            <div class="hero-bg"></div>
+        </section>
 
-    <section id="contact" class="section-padding">
-        <div class="container">
-            <div class="contact-wrapper reveal">
-                <div class="contact-sidebar">
-                    <h2 style="font-size: 40px; margin-bottom: 20px;" data-az="Gəlin birgə yaradaq" data-en="Let's build together">Gəlin birgə yaradaq</h2>
-                    <p style="opacity: 0.8; margin-bottom: 40px;" data-az="Yeni layihəniz var? Mənə yazın, müzakirə edək." data-en="Have a project? Drop me a line.">Yeni layihəniz var? Mənə yazın, müzakirə edək.</p>
-                    <div class="contact-meta">
-                        <p><strong>Email:</strong> agayevcavidan678@mail.com</p>
-                        <p><strong>WhatsApp:</strong> +994 51 446 51 10</p>
+        <section class="section" style="background: var(--bg-card);">
+            <div class="container" style="width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 40px;">
+                <div class="grid-3" style="text-align: center;">
+                    <div class="reveal">
+                        <h2 style="font-size: 60px; color: var(--primary);">50+</h2>
+                        <p style="color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px;">Uğurlu Layihə</p>
+                    </div>
+                    <div class="reveal">
+                        <h2 style="font-size: 60px; color: var(--secondary);">4+</h2>
+                        <p style="color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px;">İllik Təcrübə</p>
+                    </div>
+                    <div class="reveal">
+                        <h2 style="font-size: 60px; color: var(--success);">100%</h2>
+                        <p style="color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px;">Müştəri Razılığı</p>
                     </div>
                 </div>
-                <div class="contact-form-area">
-                    <form>
-                        <input type="text" class="form-input" placeholder="Adınız / Name">
-                        <input type="email" class="form-input" placeholder="Email ünvanınız">
-                        <textarea class="form-input" placeholder="Layihə detalları" rows="5"></textarea>
-                        <button type="submit" class="magnetic-btn" style="border:none; width: 100%;" data-az="Müraciəti göndər" data-en="Send Message">Müraciəti göndər</button>
-                    </form>
+            </div>
+        </section>
+
+        <section class="section" id="services">
+            <div class="container" style="width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 40px;">
+                <div class="sec-head reveal">
+                    <span class="sec-tag">Xidmətlər</span>
+                    <h2 class="sec-title">Nə təklif edirik?</h2>
+                </div>
+                <div class="grid-3">
+                    <div class="card reveal">
+                        <span class="card-icon">🌐</span>
+                        <h3 class="card-h3">Veb Proqramlaşdırma</h3>
+                        <p class="card-p">Sürətli, təhlükəsiz və bütün cihazlara uyğun (responsive) veb-saytların hazırlanması.</p>
+                    </div>
+                    <div class="card reveal">
+                        <span class="card-icon">🎨</span>
+                        <h3 class="card-h3">UI/UX Dizayn</h3>
+                        <p class="card-p">İstifadəçi təcrübəsinə əsaslanan müasir və estetik interfeyslərin dizayn edilməsi.</p>
+                    </div>
+                    <div class="card reveal">
+                        <span class="card-icon">🚀</span>
+                        <h3 class="card-h3">SEO Optimizasiya</h3>
+                        <p class="card-p">Saytınızın Google və digər axtarış sistemlərində ön sıralarda çıxması üçün texniki həllər.</p>
+                    </div>
+                    <div class="card reveal">
+                        <span class="card-icon">📊</span>
+                        <h3 class="card-h3">Brendinq</h3>
+                        <p class="card-p">Biznesiniz üçün unikal loqo və korporativ stilin yaradılması.</p>
+                    </div>
+                    <div class="card reveal">
+                        <span class="card-icon">📱</span>
+                        <h3 class="card-h3">Mobil Tətbiqlər</h3>
+                        <p class="card-p">iOS və Android platformaları üçün yüksək keyfiyyətli mobil tətbiqlərin yaradılması.</p>
+                    </div>
+                    <div class="card reveal">
+                        <span class="card-icon">🔒</span>
+                        <h3 class="card-h3">Kiber Təhlükəsizlik</h3>
+                        <p class="card-p">Məlumatlarınızın qorunması üçün ən son təhlükəsizlik protokollarının tətbiqi.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-bottom">
-                <p>&copy; 2025 CAVIDAN AGAYEV. Crafted with pure passion.</p>
+        <section class="section" style="background: #050505;">
+            <div class="container" style="width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 40px;">
+                <div class="sec-head reveal" style="text-align: center;">
+                    <span class="sec-tag">Yol Xəritəsi</span>
+                    <h2 class="sec-title">Təcrübə və Təhsil</h2>
+                </div>
+                <div class="timeline">
+                    <div class="time-item left reveal">
+                        <div class="time-content">
+                            <h3 style="color: var(--primary);">Senior Developer</h3>
+                            <p style="margin: 10px 0;">Digital Agency X (2022 - Hal-hazırda)</p>
+                            <p class="card-p">Böyük miqyaslı E-ticarət platformalarının memarlığının qurulması.</p>
+                        </div>
+                    </div>
+                    <div class="time-item right reveal">
+                        <div class="time-content">
+                            <h3 style="color: var(--secondary);">Web Designer</h3>
+                            <p style="margin: 10px 0;">Freelance (2020 - 2022)</p>
+                            <p class="card-p">50-dən çox yerli və xarici brend üçün vizual konsepsiyaların hazırlanması.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </footer>
+        </section>
 
-    <script>
-        // 1. Custom Cursor Logic
-        const cursor = document.getElementById('cursor');
-        const follower = document.getElementById('cursor-follower');
-        
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            
-            setTimeout(() => {
-                follower.style.left = e.clientX - 12 + 'px';
-                follower.style.top = e.clientY - 12 + 'px';
-            }, 50);
-        });
+        <section class="section" id="contact">
+            <div class="container" style="width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 40px;">
+                <div class="contact-box reveal">
+                    <div class="c-sidebar">
+                        <h2 style="font-size: 45px; line-height: 1.1; margin-bottom: 30px;">Gəlin Birgə İşləyək</h2>
+                        <p style="font-size: 18px; opacity: 0.8; margin-bottom: 40px;">Hər hansı bir layihəniz və ya sualınız var? Mənə yazın, ən qısa zamanda cavablandıracam.</p>
+                        <div style="margin-bottom: 20px;">
+                            <p><strong>Email:</strong> agayevcavidan678@mail.com</p>
+                        </div>
+                        <div>
+                            <p><strong>WhatsApp:</strong> +994 51 446 51 10</p>
+                        </div>
+                    </div>
+                    <div class="c-form-area">
+                        <form id="portfolioForm">
+                            <div class="input-group">
+                                <input type="text" class="input-field" required>
+                                <label class="input-label">Adınız</label>
+                            </div>
+                            <div class="input-group">
+                                <input type="email" class="input-field" required>
+                                <label class="input-label">Email Ünvanınız</label>
+                            </div>
+                            <div class="input-group">
+                                <textarea class="input-field" rows="4" required></textarea>
+                                <label class="input-label">Mesajınız</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width: 100%; border: none; cursor: pointer;">Mesajı Göndər</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-        // 2. Scroll Effects
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('.nav-header');
-            header.classList.toggle('scrolled', window.scrollY > 50);
-            
-            // Reveal on Scroll
-            const reveals = document.querySelectorAll('.reveal');
-            reveals.forEach(el => {
-                const windowHeight = window.innerHeight;
-                const revealTop = el.getBoundingClientRect().top;
-                if (revealTop < windowHeight - 100) {
-                    el.classList.add('active');
-                }
-            });
-        });
-
-        // 3. Language Toggle (Demo logic)
-        let currentLang = 'az';
-        function toggleLang() {
-            currentLang = currentLang === 'az' ? 'en' : 'az';
-            document.querySelectorAll('[data-az]').forEach(el => {
-                el.innerText = el.getAttribute(`data-${currentLang
+    <footer>
+        <div class="container" style="width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 40px;">
+            <div class="f-grid">
+                <div>
+                    <a href="#" class="logo" style="margin-bottom: 25px;">
+                        <div class="logo-icon">C</div>
+                        <span class="logo-text">CAVIDAN</span>
+                    </a>
+                    <p style="color: var(--text-dim);">Dizayn və proqramlaşdırmanın qovuşduğu nöqtə. Biznesinizi rəqəmsal gələcəyə hazırlayırıq.</p>
+                </div>
+                <div>
+                    <h4 class="f-title">Naviqasiya</h4>
+                    <ul class="f-links">
+ 
