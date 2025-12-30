@@ -1,811 +1,283 @@
 <!doctype html>
 <html lang="az">
 <head>
-  <!-- ============================================================
-       CAVIDAN • PREMIUM LANDING (Single-file)
-       - AZ/EN language switch (localStorage)
-       - Pricing: $30 / $70 / $100
-       - WhatsApp floating CTA
-       - SEO + OpenGraph + JSON-LD
-       - Smooth animations + reduced-motion support
-       - Accessible, responsive, clean architecture
-       ============================================================ -->
-
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Cavidan | Vebsayt Xidmətləri</title>
-  <meta name="description" content="Sürətli, səliqəli və mobil uyğun vebsaytlar. Landing page, portfolio/CV və biznes saytı. 1–5 günə təhvil, WhatsApp ilə əlaqə." />
-  <meta name="theme-color" content="#0b1020" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Cavidan | Vebsayt Xidmətləri" />
-  <meta property="og:description" content="Sürətli, səliqəli və mobil uyğun vebsaytlar. Landing page, portfolio/CV və biznes saytı. WhatsApp ilə əlaqə." />
-  <meta property="og:type" content="website" />
-  <meta property="og:locale" content="az_AZ" />
-  <meta property="og:url" content="https://agayevcavidan5110-cell.github.io/my-site/" />
-  <!-- og:image (optional): add your image later
-  <meta property="og:image" content="https://.../og.png" />
-  -->
-
-  <!-- Twitter cards -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Cavidan | Vebsayt Xidmətləri" />
-  <meta name="twitter:description" content="Sürətli, səliqəli və mobil uyğun vebsaytlar. Landing page, portfolio/CV və biznes saytı." />
-
-  <!-- Fonts (optional but premium look) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-
-  <!-- ============================================================
-       STYLE
-       ============================================================ -->
-  <style>
-    /* ----------------------------
-       0) Reset + Root variables
-       ---------------------------- */
-    *{ box-sizing:border-box; }
-    html{ scroll-behavior:smooth; }
-    body{ margin:0; }
-
-    :root{
-      --bg0:#070a14;
-      --bg1:#0b1020;
-      --card:#101833;
-      --card2:#0e1530;
-      --border: rgba(255,255,255,.10);
-      --text:#e9ecff;
-      --muted: rgba(233,236,255,.78);
-      --muted2: rgba(233,236,255,.62);
-
-      --a:#4f7cff;       /* primary */
-      --a2:#9d7bff;      /* secondary */
-      --good:#4ade80;    /* green */
-      --warn:#fbbf24;    /* yellow */
-
-      --shadow: 0 18px 60px rgba(0,0,0,.42);
-      --shadow2: 0 12px 24px rgba(0,0,0,.35);
-
-      --r12:12px;
-      --r16:16px;
-      --r20:20px;
-      --r24:24px;
-
-      --max: 1120px;
-
-      --ease: cubic-bezier(.2,.9,.2,1);
-      --t: .35s var(--ease);
-
-      --grid-gap: 14px;
-    }
-
-    /* Reduced motion */
-    @media (prefers-reduced-motion: reduce){
-      html{ scroll-behavior:auto; }
-      *{ animation:none !important; transition:none !important; }
-    }
-
-    /* ----------------------------
-       1) Base typography & layout
-       ---------------------------- */
-    body{
-      font-family:"Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background:
-        radial-gradient(900px 500px at 18% 0%, rgba(79,124,255,.18), transparent 60%),
-        radial-gradient(700px 420px at 82% 12%, rgba(157,123,255,.16), transparent 60%),
-        radial-gradient(900px 500px at 45% 110%, rgba(79,124,255,.10), transparent 55%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
-      color: var(--text);
-      line-height: 1.55;
-      overflow-x:hidden;
-    }
-
-    a{ color:inherit; text-decoration:none; }
-    img{ max-width:100%; display:block; }
-    button{ font-family:inherit; }
-
-    .container{
-      width:100%;
-      max-width: var(--max);
-      margin:0 auto;
-      padding: 0 18px;
-    }
-
-    /* ----------------------------
-       2) Subtle background mesh
-       ---------------------------- */
-    .bg-grid{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      opacity:.35;
-      background:
-        linear-gradient(transparent 0 95%, rgba(255,255,255,.04) 95% 100%),
-        linear-gradient(90deg, transparent 0 95%, rgba(255,255,255,.04) 95% 100%);
-      background-size: 56px 56px;
-      mask-image: radial-gradient(closest-side at 50% 30%, rgba(0,0,0,1), rgba(0,0,0,0));
-      z-index:0;
-    }
-
-    /* ----------------------------
-       3) Top nav
-       ---------------------------- */
-    .nav{
-      position:sticky;
-      top:0;
-      z-index:50;
-      backdrop-filter: blur(16px);
-      background: rgba(7,10,20,.45);
-      border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-
-    .nav__inner{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 12px;
-      padding: 12px 0;
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap: 12px;
-      min-width: 200px;
-    }
-
-    .logo{
-      width:44px;
-      height:44px;
-      border-radius: 14px;
-      background:
-        radial-gradient(16px 16px at 30% 30%, rgba(255,255,255,.65), transparent 55%),
-        linear-gradient(135deg, rgba(79,124,255,1), rgba(157,123,255,1));
-      box-shadow: 0 12px 24px rgba(79,124,255,.22);
-      display:grid;
-      place-items:center;
-      border: 1px solid rgba(255,255,255,.14);
-    }
-
-    .logo svg{
-      width:26px;
-      height:26px;
-      display:block;
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,.25));
-    }
-
-    .brand__text{
-      display:flex;
-      flex-direction:column;
-      gap:2px;
-      line-height:1.1;
-    }
-
-    .brand__name{
-      font-family:"Space Grotesk", system-ui, sans-serif;
-      font-weight: 700;
-      letter-spacing:.3px;
-      font-size: 18px;
-    }
-
-    .brand__tag{
-      color: var(--muted2);
-      font-size: 12px;
-      letter-spacing:.2px;
-    }
-
-    .nav__links{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      flex-wrap:wrap;
-      justify-content:center;
-    }
-
-    .pill{
-      padding: 9px 12px;
-      border: 1px solid rgba(255,255,255,.10);
-      border-radius: 999px;
-      background: rgba(16,24,51,.50);
-      color: var(--muted);
-      font-weight: 700;
-      font-size: 12px;
-      letter-spacing:.2px;
-      transition: var(--t);
-    }
-    .pill:hover{
-      transform: translateY(-1px);
-      border-color: rgba(79,124,255,.45);
-      color: var(--text);
-      background: rgba(16,24,51,.78);
-    }
-
-    .nav__right{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      min-width: 200px;
-      justify-content:flex-end;
-    }
-
-    .lang{
-      display:flex;
-      gap: 8px;
-      padding: 6px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(16,24,51,.45);
-    }
-
-    .lang button{
-      appearance:none;
-      border:0;
-      background:transparent;
-      color: var(--muted);
-      font-weight: 900;
-      font-size: 12px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      cursor:pointer;
-      transition: var(--t);
-      letter-spacing:.3px;
-    }
-    .lang button.active{
-      color:#06102a;
-      background: linear-gradient(135deg, rgba(79,124,255,1), rgba(157,123,255,1));
-      box-shadow: 0 10px 18px rgba(79,124,255,.22);
-    }
-
-    .mini-cta{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(79,124,255,.45);
-      background: rgba(79,124,255,.10);
-      transition: var(--t);
-      font-weight: 900;
-      font-size: 12px;
-      letter-spacing:.2px;
-      color: var(--text);
-    }
-    .mini-cta:hover{
-      transform: translateY(-1px);
-      background: rgba(79,124,255,.18);
-    }
-
-    /* Mobile nav */
-    .nav__mobile{
-      display:none;
-      gap: 8px;
-      align-items:center;
-    }
-    .burger{
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(16,24,51,.55);
-      color: var(--text);
-      border-radius: 12px;
-      padding: 10px 12px;
-      cursor:pointer;
-      font-weight:900;
-    }
-
-    @media (max-width: 920px){
-      .nav__links{ display:none; }
-      .nav__mobile{ display:flex; }
-      .brand{ min-width:auto; }
-      .nav__right{ min-width:auto; }
-    }
-
-    /* ----------------------------
-       4) Hero
-       ---------------------------- */
-    .hero{
-      position:relative;
-      z-index:1;
-      padding: 42px 0 18px;
-    }
-
-    .hero__grid{
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 18px;
-      align-items:stretch;
-    }
-
-    @media (max-width: 920px){
-      .hero__grid{ grid-template-columns: 1fr; }
-    }
-
-    .hero__left{
-      padding: 16px;
-      border-radius: var(--r24);
-      background:
-        radial-gradient(500px 200px at 20% 10%, rgba(79,124,255,.22), transparent 55%),
-        radial-gradient(420px 180px at 80% 20%, rgba(157,123,255,.16), transparent 55%),
-        rgba(16,24,51,.28);
-      border: 1px solid rgba(255,255,255,.08);
-      box-shadow: var(--shadow2);
-      overflow:hidden;
-      position:relative;
-    }
-
-    .hero__left:before{
-      content:"";
-      position:absolute;
-      inset:-1px;
-      background:
-        linear-gradient(135deg, rgba(79,124,255,.16), rgba(157,123,255,.12));
-      opacity:.35;
-      mask-image: radial-gradient(closest-side at 20% 20%, rgba(0,0,0,1), rgba(0,0,0,0));
-      pointer-events:none;
-    }
-
-    .kicker{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(11,16,32,.55);
-      color: var(--muted);
-      font-weight: 900;
-      font-size: 12px;
-      letter-spacing:.35px;
-      position:relative;
-      z-index:1;
-    }
-
-    .k-dot{
-      width:10px;height:10px;border-radius:50%;
-      background: linear-gradient(135deg, var(--a), var(--a2));
-      box-shadow: 0 10px 18px rgba(79,124,255,.26);
-    }
-
-    .h1{
-      font-size: clamp(34px, 4.8vw, 54px);
-      line-height:1.05;
-      margin: 16px 0 10px;
-      letter-spacing: -0.9px;
-      font-weight: 900;
-      position:relative;
-      z-index:1;
-    }
-
-    .grad{
-      background: linear-gradient(135deg, rgba(79,124,255,1), rgba(157,123,255,1));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-    }
-
-    .lead{
-      color: var(--muted);
-      font-size: 16px;
-      max-width: 68ch;
-      margin: 0 0 18px;
-      position:relative;
-      z-index:1;
-    }
-
-    .cta-row{
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      align-items:center;
-      margin-top: 8px;
-      position:relative;
-      z-index:1;
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      padding: 12px 14px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(16,24,51,.55);
-      color: var(--text);
-      font-weight: 900;
-      letter-spacing:.2px;
-      cursor:pointer;
-      transition: var(--t);
-      user-select:none;
-    }
-    .btn:hover{
-      transform: translateY(-2px);
-      border-color: rgba(79,124,255,.45);
-      background: rgba(16,24,51,.78);
-    }
-
-    .btn--primary{
-      border: 1px solid rgba(79,124,255,.55);
-      background: linear-gradient(135deg, rgba(79,124,255,1), rgba(157,123,255,1));
-      color: #06102a;
-      box-shadow: 0 18px 40px rgba(79,124,255,.22);
-    }
-    .btn--primary:hover{ transform: translateY(-2px); }
-
-    .trust{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 10px;
-      margin-top: 18px;
-      position:relative;
-      z-index:1;
-    }
-    @media (max-width: 520px){
-      .trust{ grid-template-columns: 1fr; }
-    }
-
-    .trust__item{
-      padding: 12px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(16,24,51,.40);
-    }
-    .trust__num{
-      font-weight: 1000;
-      font-size: 18px;
-      color: var(--text);
-      letter-spacing:-.2px;
-    }
-    .trust__label{
-      margin-top:2px;
-      color: var(--muted2);
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing:.2px;
-    }
-
-    .hero__right{
-      border-radius: var(--r24);
-      border: 1px solid rgba(255,255,255,.10);
-      background:
-        radial-gradient(520px 220px at 30% 10%, rgba(79,124,255,.18), transparent 55%),
-        rgba(16,24,51,.42);
-      box-shadow: var(--shadow2);
-      padding: 16px;
-      position:relative;
-      overflow:hidden;
-    }
-
-    .hero__right:after{
-      content:"";
-      position:absolute;
-      inset:-1px;
-      background: linear-gradient(180deg, rgba(255,255,255,.10), transparent 50%);
-      opacity:.25;
-      pointer-events:none;
-    }
-
-    .quick{
-      position:relative;
-      z-index:1;
-    }
-
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(79,124,255,.45);
-      background: rgba(79,124,255,.10);
-      color: var(--text);
-      font-weight: 1000;
-      font-size: 12px;
-      letter-spacing:.2px;
-    }
-
-    .q-list{
-      margin-top: 14px;
-      display:grid;
-      gap: 10px;
-    }
-
-    .q-row{
-      display:flex;
-      justify-content:space-between;
-      gap: 10px;
-      padding: 12px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(11,16,32,.40);
-      color: var(--muted);
-      font-weight: 800;
-      font-size: 13px;
-    }
-
-    .q-row b{
-      color: var(--good);
-      font-weight: 1000;
-    }
-
-    .q-cta{
-      margin-top: 14px;
-      width:100%;
-    }
-
-    /* ----------------------------
-       5) Sections
-       ---------------------------- */
-    .section{
-      position:relative;
-      z-index:1;
-      padding: 52px 0;
-    }
-
-    .section__head{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap: 12px;
-      flex-wrap:wrap;
-      margin-bottom: 14px;
-    }
-
-    .h2{
-      margin:0;
-      font-size: 26px;
-      letter-spacing:-.5px;
-      font-weight: 1000;
-    }
-
-    .sub{
-      margin:0;
-      color: var(--muted);
-      max-width: 78ch;
-      font-weight: 700;
-      font-size: 14px;
-    }
-
-    .grid3{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: var(--grid-gap);
-    }
-    @media (max-width: 920px){
-      .grid3{ grid-template-columns: 1fr; }
-    }
-
-    .card{
-      border-radius: var(--r24);
-      border: 1px solid rgba(255,255,255,.10);
-      background:
-        radial-gradient(420px 180px at 30% 10%, rgba(79,124,255,.14), transparent 55%),
-        rgba(16,24,51,.40);
-      box-shadow: var(--shadow2);
-      padding: 16px;
-      transition: var(--t);
-      position:relative;
-      overflow:hidden;
-    }
-    .card:hover{
-      transform: translateY(-3px);
-      border-color: rgba(79,124,255,.45);
-    }
-
-    .card__title{
-      font-weight: 1000;
-      margin: 10px 0 6px;
-      font-size: 16px;
-      letter-spacing:-.2px;
-    }
-    .card__desc{
-      color: var(--muted);
-      margin:0;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .icon{
-      width: 42px;height:42px;border-radius: 16px;
-      display:grid;place-items:center;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(11,16,32,.35);
-      color: var(--text);
-    }
-
-    .icon svg{ width:22px;height:22px; }
-
-    .ul{
-      margin: 12px 0 0;
-      padding: 0 0 0 18px;
-      color: var(--muted);
-      font-weight: 700;
-      font-size: 13px;
-    }
-    .ul li{ margin: 7px 0; }
-
-    /* Work cards */
-    .work{
-      display:block;
-      text-decoration:none;
-    }
-    .thumb{
-      height: 120px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.10);
-      background:
-        radial-gradient(220px 120px at 35% 35%, rgba(79,124,255,.20), transparent 60%),
-        radial-gradient(220px 120px at 70% 50%, rgba(157,123,255,.18), transparent 60%),
-        linear-gradient(135deg, rgba(11,16,32,.9), rgba(16,24,51,.65));
-      display:flex;
-      align-items:flex-end;
-      justify-content:flex-start;
-      padding: 12px;
-    }
-    .thumb__tag{
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
-      padding: 7px 10px;
-      border-radius: 999px;
-      background: rgba(0,0,0,.28);
-      border: 1px solid rgba(255,255,255,.10);
-      color: var(--text);
-      font-weight: 1000;
-      font-size: 12px;
-    }
-
-    /* Pricing */
-    .pricing{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: var(--grid-gap);
-    }
-    @media (max-width: 920px){
-      .pricing{ grid-template-columns: 1fr; }
-    }
-
-    .price{
-      padding: 18px;
-      border-radius: var(--r24);
-      border: 1px solid rgba(255,255,255,.10);
-      background:
-        radial-gradient(420px 180px at 25% 10%, rgba(79,124,255,.16), transparent 55%),
-        rgba(16,24,51,.42);
-      box-shadow: var(--shadow2);
-      position:relative;
-      overflow:hidden;
-      transition: var(--t);
-    }
-    .price:hover{
-      transform: translateY(-3px);
-      border-color: rgba(79,124,255,.45);
-    }
-
-    .price--hot{
-      border-color: rgba(79,124,255,.65);
-      box-shadow: 0 22px 60px rgba(79,124,255,.18);
-    }
-
-    .hot{
-      position:absolute;
-      top: 14px;
-      right: 14px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      font-weight: 1000;
-      font-size: 12px;
-      background: linear-gradient(135deg, rgba(79,124,255,1), rgba(157,123,255,1));
-      color:#06102a;
-      border: 1px solid rgba(255,255,255,.18);
-    }
-
-    .price__name{
-      font-weight: 1000;
-      font-size: 16px;
-      letter-spacing:-.2px;
-      margin:0;
-    }
-
-    .price__sub{
-      margin: 4px 0 0;
-      color: var(--muted2);
-      font-weight: 800;
-      font-size: 12px;
-    }
-
-    .price__value{
-      margin: 14px 0 6px;
-      font-size: 36px;
-      font-weight: 1100;
-      letter-spacing:-1px;
-    }
-
-    .price__value span{
-      color: var(--muted2);
-      font-weight: 900;
-      font-size: 14px;
-      margin-left: 6px;
-      letter-spacing:0;
-    }
-
-    .checks{
-      list-style:none;
-      padding: 0;
-      margin: 12px 0 0;
-      display:grid;
-      gap: 10px;
-    }
-
-    .checks li{
-      display:flex;
-      gap: 10px;
-      align-items:flex-start;
-      color: var(--muted);
-      font-weight: 800;
-      font-size: 13px;
-    }
-    .checks li i{
-      font-style:normal;
-      color: var(--good);
-      font-weight: 1100;
-      margin-top: 1px;
-    }
-
-    /* FAQ */
-    .faq{
-      display:grid;
-      gap: 10px;
-    }
-
-    .faq__item{
-      border: 1px solid rgba(255,255,255,.10);
-      border-radius: 18px;
-      background: rgba(16,24,51,.35);
-      overflow:hidden;
-    }
-
-    .faq__q{
-      width:100%;
-      text-align:left;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      padding: 14px 14px;
-      background: transparent;
-      border:0;
-      color: var(--text);
-      cursor:pointer;
-      font-weight: 1000;
-      letter-spacing:-.2px;
-    }
-
-    .faq__q span{
-      color: var(--muted2);
-      font-weight: 900;
-      font-size: 12px;
-      padding: 6px 8px;
-      border: 1px solid rgba(255,255,255,.10);
-      border-radius: 999px;
-      background: rgba(11,16,32,.40);
-    }
-
-    .faq__a{
-      max-height: 0;
-      overflow:hidden;
-      transition: max-height .35s var(--ease);
-      border-top: 1px solid rgba(255,255,255,.06);
-    }
-    .faq__a p{
-      margin:0;
-      padding: 12px 14px 14px;
-      color: var(--muted);
-      font-weight: 750;
-      font-size: 13px;
-    }
-    .faq__item.open .faq__a{ max-height: 220px; }
-
-    /* Contact */
-    .contact{
-      display:grid;
-    
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Cavidan | Professional Web Sites</title>
+<meta name="description" content="Landing page, portfolio və biznes saytları. 1–5 günə təhvil. WhatsApp ilə əlaqə.">
+
+<meta property="og:title" content="Cavidan | Professional Web Sites">
+<meta property="og:description" content="Modern, sürətli və mobil uyğun vebsaytlar">
+<meta property="og:type" content="website">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--bg:#0b1020;
+--card:#131b33;
+--border:#243055;
+--text:#e9ecff;
+--muted:#aab0ff;
+--accent:#4f7cff;
+--accent2:#9d7bff;
+--green:#4ade80;
+}
+
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:Inter,system-ui;
+background:linear-gradient(180deg,#070b18,#0b1020);
+color:var(--text);
+line-height:1.6;
+}
+
+a{color:inherit;text-decoration:none}
+.container{max-width:1100px;margin:auto;padding:24px}
+
+header{
+position:sticky;top:0;z-index:10;
+background:rgba(11,16,32,.85);
+backdrop-filter:blur(12px);
+border-bottom:1px solid var(--border);
+}
+
+.nav{
+display:flex;align-items:center;justify-content:space-between;
+}
+
+.logo{
+display:flex;align-items:center;gap:10px;font-weight:800;
+}
+.logo span{
+display:grid;place-items:center;
+width:40px;height:40px;border-radius:12px;
+background:linear-gradient(135deg,var(--accent),var(--accent2));
+color:#06102a;font-weight:900;
+}
+
+.lang button{
+background:transparent;border:1px solid var(--border);
+color:var(--text);padding:6px 10px;border-radius:8px;
+font-weight:700;cursor:pointer
+}
+.lang button.active{
+background:var(--accent);color:#06102a;border-color:var(--accent)
+}
+
+.hero{
+padding:80px 0;
+display:grid;grid-template-columns:1.2fr .8fr;gap:24px
+}
+@media(max-width:900px){.hero{grid-template-columns:1fr}}
+
+.hero-box{
+background:rgba(19,27,51,.7);
+border:1px solid var(--border);
+border-radius:20px;padding:28px
+}
+
+h1{
+font-size:clamp(32px,5vw,52px);
+line-height:1.1;margin:0 0 16px
+}
+.grad{
+background:linear-gradient(135deg,var(--accent),var(--accent2));
+-webkit-background-clip:text;color:transparent
+}
+
+.btn{
+display:inline-block;margin-top:16px;
+padding:12px 18px;border-radius:12px;
+font-weight:800;border:1px solid var(--border)
+}
+.btn.primary{
+background:linear-gradient(135deg,var(--accent),var(--accent2));
+color:#06102a;border:0
+}
+
+.trust{
+display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px
+}
+.trust div{
+background:var(--card);border:1px solid var(--border);
+border-radius:14px;padding:12px;text-align:center
+}
+
+.section{padding:60px 0}
+.section h2{font-size:28px;margin:0 0 12px}
+
+.grid3{
+display:grid;grid-template-columns:repeat(3,1fr);gap:16px
+}
+@media(max-width:900px){.grid3{grid-template-columns:1fr}}
+
+.card{
+background:var(--card);border:1px solid var(--border);
+border-radius:18px;padding:18px
+}
+
+.demo{
+height:120px;border-radius:14px;
+background:linear-gradient(135deg,#1e293b,#334155);
+display:flex;align-items:flex-end;padding:10px
+}
+
+.price{
+text-align:center
+}
+.price h3{margin:10px 0}
+.price .val{font-size:36px;font-weight:900}
+.price ul{list-style:none;padding:0;margin:12px 0}
+.price li{margin:6px 0;color:var(--muted)}
+.hot{border:2px solid var(--accent)}
+
+.contact{
+display:grid;grid-template-columns:1fr 1fr;gap:24px
+}
+@media(max-width:800px){.contact{grid-template-columns:1fr}}
+
+footer{
+border-top:1px solid var(--border);
+text-align:center;padding:24px;color:var(--muted)
+}
+
+.whatsapp{
+position:fixed;right:20px;bottom:20px;
+background:#25D366;color:#000;
+padding:14px 16px;border-radius:999px;
+font-weight:900
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="container nav">
+<div class="logo"><span>C</span>CAVIDAN</div>
+<div class="lang">
+<button class="active" onclick="setLang('az')">AZ</button>
+<button onclick="setLang('en')">EN</button>
+</div>
+</div>
+</header>
+
+<main class="container">
+
+<section class="hero">
+<div class="hero-box">
+<h1 data-az="Biznesin üçün <span class='grad'>müasir sayt</span>"
+    data-en="Modern <span class='grad'>websites</span> for your business">
+Biznesin üçün <span class="grad">müasir sayt</span>
+</h1>
+
+<p data-az="Landing page, CV/Portfolio və biznes saytları. Sürətli, təmiz və mobil uyğun."
+   data-en="Landing pages, CV/Portfolio and business websites. Fast and responsive.">
+Landing page, CV/Portfolio və biznes saytları. Sürətli, təmiz və mobil uyğun.
+</p>
+
+<a href="#contact" class="btn primary" data-az="Əlaqə saxla" data-en="Contact me">Əlaqə saxla</a>
+
+<div class="trust">
+<div><b>1–5</b><br><small data-az="Günə təhvil" data-en="Days delivery">Günə təhvil</small></div>
+<div><b>100%</b><br><small>Responsive</small></div>
+<div><b>WhatsApp</b><br><small>Support</small></div>
+</div>
+</div>
+
+<div class="hero-box">
+<h3 data-az="Xüsusiyyətlər" data-en="Features">Xüsusiyyətlər</h3>
+<ul>
+<li>✔️ SEO uyğun struktur</li>
+<li>✔️ GitHub Pages hostinq</li>
+<li>✔️ Dil dəyişmə (AZ/EN)</li>
+<li>✔️ Təmiz kod</li>
+</ul>
+</div>
+</section>
+
+<section class="section">
+<h2 data-az="Nümunələr (Demo)" data-en="Examples (Demo)">Nümunələr (Demo)</h2>
+<div class="grid3">
+<div class="card">
+<div class="demo">Biznes Landing</div>
+</div>
+<div class="card">
+<div class="demo">Portfolio / CV</div>
+</div>
+<div class="card">
+<div class="demo">Link-in-bio</div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<h2 data-az="Qiymətlər" data-en="Pricing">Qiymətlər</h2>
+<div class="grid3">
+<div class="card price">
+<h3>Start</h3>
+<div class="val">$30</div>
+<ul>
+<li>1 səhifə</li>
+<li>Mobil uyğun</li>
+<li>Əlaqə formu</li>
+</ul>
+</div>
+
+<div class="card price hot">
+<h3>Pro</h3>
+<div class="val">$70</div>
+<ul>
+<li>Çox bölmə</li>
+<li>WhatsApp düymə</li>
+<li>SEO</li>
+</ul>
+</div>
+
+<div class="card price">
+<h3>Business</h3>
+<div class="val">$100</div>
+<ul>
+<li>Brend dizayn</li>
+<li>Google Maps</li>
+<li>Limitsiz düzəliş</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="section" id="contact">
+<h2 data-az="Əlaqə" data-en="Contact">Əlaqə</h2>
+<div class="contact">
+<div>
+<p>Email: agayevcavidan678@mail.com</p>
+<p>WhatsApp: +994 51 446 51 10</p>
+</div>
+<div>
+<a href="https://wa.me/994514465110" class="btn primary">WhatsApp</a>
+</div>
+</div>
+</section>
+
+</main>
+
+<footer>
+© 2025 Cavidan. All rights reserved.
+</footer>
+
+<a class="whatsapp" href="https://wa.me/994514465110">WhatsApp</a>
+
+<script>
+const t=document.querySelectorAll("[data-az]");
+function setLang(l){
+t.forEach(e=>e.innerHTML=e.dataset[l]);
+document.querySelectorAll(".lang button").forEach(b=>b.classList.remove("active"));
+event.target.classList.add("active");
+}
+</script>
+
+</body>
+</html>
